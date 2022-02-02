@@ -1,7 +1,6 @@
-import 'package:bookkikko_business/components/drawer_components.dart';
-import 'package:bookkikko_business/components/main_components.dart';
-import 'package:bookkikko_business/screens/drawyer_screen.dart';
 import 'package:flutter/material.dart';
+
+import './screens/orders_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,12 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-          appBar: CustomAppBar(title: "Orders"),
-          drawer: DrawyerPage(),
-          body: Center(
-            child: Text("M E N O Business"),
-          )),
-    );
+        theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFEFEFEF)),
+        home: Orders());
   }
 }
