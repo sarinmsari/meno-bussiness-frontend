@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: CustomAppBar(title: "M E N O Business"),
+          appBar: CustomAppBar(title: "Orders"),
           drawer: DrawyerPage(),
           body: Center(
             child: Text("M E N O Business"),
