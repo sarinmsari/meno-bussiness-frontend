@@ -101,8 +101,10 @@ class _DrawyerPageState extends State<DrawyerPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Closes at 9.00pm",
-                          style: TextStyle(
+                          _status == "closed"
+                              ? "Opens at 8:30am"
+                              : "Closes at 9.00pm",
+                          style: const TextStyle(
                             color: Colors.white70,
                             fontSize: 15,
                           ),
@@ -111,7 +113,7 @@ class _DrawyerPageState extends State<DrawyerPage> {
                           padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           child: Text(
                             _status,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white70,
                               fontSize: 15,
                             ),
@@ -131,7 +133,7 @@ class _DrawyerPageState extends State<DrawyerPage> {
                       route: "/scanqr_page",
                     ),
                     CustomDrawerButton(
-                      title: "Revenew",
+                      title: "Revenue",
                       icon: Icons.attach_money_outlined,
                       route: "/locatenearby_page",
                     ),
