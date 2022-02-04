@@ -1,6 +1,7 @@
 import 'package:bookkikko_business/components/drawer_components.dart';
 import 'package:bookkikko_business/components/main_components.dart';
 import 'package:bookkikko_business/screens/drawyer_screen.dart';
+import 'package:bookkikko_business/screens/order_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,12 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-          appBar: CustomAppBar(title: "M E N O Business"),
-          drawer: DrawyerPage(),
-          body: Center(
-            child: Text("M E N O Business"),
-          )),
+      home: OrderPage(),
     );
   }
 }
