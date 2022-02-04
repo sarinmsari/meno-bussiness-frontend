@@ -11,9 +11,51 @@ class Orders extends StatefulWidget {
 
 class _OrdersState extends State<Orders> {
   int _appliedFilter = 0;
+  final String _userRole = 'MANAGER';
+
+//Dynamic theme to order boxes according to value of variable _userRole
+  Color? _roleThemeColor;
+  Color? _roleThemeTextColor;
+  String _roleButtonText = '';
+
+  void setUserRoleThemeColor() {
+    switch (_userRole) {
+      case 'KITCHEN':
+        setState(() {
+          _roleThemeColor = Colors.yellow;
+          _roleButtonText = 'Prepared';
+          _roleThemeTextColor = Colors.black87;
+        });
+        break;
+      case 'WAITER':
+        setState(() {
+          _roleThemeColor = Colors.blue;
+          _roleButtonText = 'Delivered';
+          _roleThemeTextColor = Colors.white;
+        });
+        break;
+      case 'CASHIER':
+      case 'MANAGER':
+      case 'OWNER':
+        setState(() {
+          _roleThemeColor = Colors.green;
+          _roleButtonText = 'Mark Paid';
+          _roleThemeTextColor = Colors.white;
+        });
+        break;
+      default:
+        setState(() {
+          _roleThemeColor = Colors.white;
+          _roleButtonText = '';
+          _roleThemeTextColor = Colors.white;
+        });
+    }
+  }
+  //Dynamic theme set section end
 
   @override
   Widget build(BuildContext context) {
+    setUserRoleThemeColor();
     return Scaffold(
       appBar: CustomAppBar(title: "Orders"),
       drawer: DrawyerPage(),
@@ -90,71 +132,73 @@ class _OrdersState extends State<Orders> {
             ),
             Expanded(
               child: ListView.separated(
-                  itemBuilder: (ctx, index) {
-                    return Container(
-                      margin: const EdgeInsets.all(8.0),
-                      padding: const EdgeInsets.symmetric(vertical: 4.0),
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Colors.white,
-                      ),
-                      child: ListTile(
-                        onTap: () {
-                          print("orderbox $index tap");
-                        },
-                        leading: Container(
-                          width: 75,
-                          height: 75,
-                          decoration: const BoxDecoration(
-                            color: Colors.blue,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Center(
-                              child: Text(
-                            '5',
-                            style: const TextStyle(
-                                fontSize: 35,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          )),
+                itemBuilder: (ctx, index) {
+                  return Container(
+                    margin: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.symmetric(vertical: 4.0),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      color: Colors.white,
+                    ),
+                    child: ListTile(
+                      onTap: () {
+                        print("orderbox $index tap");
+                      },
+                      leading: Container(
+                        width: 75,
+                        height: 75,
+                        decoration: BoxDecoration(
+                          color: _roleThemeColor,
+                          shape: BoxShape.circle,
                         ),
-                        title: Text(
-                          "Chicken Biriyani",
+                        child: Center(
+                            child: Text(
+                          '5',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black87),
-                        ),
-                        subtitle: Row(
-                          children: [
-                            Text("count: 3"),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            Text("table: 5"),
-                          ],
-                        ),
-                        trailing: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.fromLTRB(15, 12, 15, 12),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
+                              fontSize: 35,
+                              color: _roleThemeTextColor,
+                              fontWeight: FontWeight.bold),
+                        )),
+                      ),
+                      title: Text(
+                        "Chicken Biriyani",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.black87),
+                      ),
+                      subtitle: Row(
+                        children: [
+                          Text("count: 3"),
+                          SizedBox(
+                            width: 15,
                           ),
-                          onPressed: () {
-                            print('Order no.$index delivered');
-                          },
-                          child: Text(
-                            'Delivered',
-                            style: TextStyle(fontSize: 18),
+                          Text("table: 5"),
+                        ],
+                      ),
+                      trailing: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: _roleThemeColor,
+                          padding: const EdgeInsets.fromLTRB(15, 12, 15, 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
+                        ),
+                        onPressed: () {
+                          print('Order no.$index delivered');
+                        },
+                        child: Text(
+                          _roleButtonText,
+                          style: TextStyle(
+                              fontSize: 18, color: _roleThemeTextColor),
                         ),
                       ),
-                    );
-                  },
-                  separatorBuilder: (ctx, index) {
-                    return Container();
-                  },
-                  itemCount: 10),
+                    ),
+                  );
+                },
+                separatorBuilder: (ctx, index) {
+                  return Container();
+                },
+                itemCount: 10,
+              ),
             ),
           ],
         ),
