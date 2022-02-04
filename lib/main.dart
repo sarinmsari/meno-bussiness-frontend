@@ -1,3 +1,7 @@
+import 'package:bookkikko_business/components/drawer_components.dart';
+import 'package:bookkikko_business/components/main_components.dart';
+import 'package:bookkikko_business/screens/drawyer_screen.dart';
+import 'package:bookkikko_business/screens/order_screen.dart';
 import 'package:flutter/material.dart';
 
 import './screens/orders_screen.dart';
@@ -12,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFEFEFEF)),
-        home: Orders());
+      home: OrderPage(),
+    );
   }
 }
