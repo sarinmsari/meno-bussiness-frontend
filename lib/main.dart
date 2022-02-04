@@ -4,6 +4,8 @@ import 'package:bookkikko_business/screens/drawyer_screen.dart';
 import 'package:bookkikko_business/screens/order_screen.dart';
 import 'package:flutter/material.dart';
 
+import './screens/orders_screen.dart';
+
 void main() {
   runApp(const MyApp());
 }

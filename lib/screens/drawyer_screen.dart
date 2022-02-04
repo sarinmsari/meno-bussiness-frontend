@@ -72,11 +72,14 @@ class _DrawyerPageState extends State<DrawyerPage> {
                         Text(
                           "Ithathas Kitchen",
                           style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold),
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                        CupertinoSwitch(
+                        Transform.scale(
+                          scale: 0.8,
+                          child: CupertinoSwitch(
                             value: _isOpen,
                             activeColor: Colors.green.shade300,
                             onChanged: (val) {
@@ -84,29 +87,36 @@ class _DrawyerPageState extends State<DrawyerPage> {
                                 _isOpen = val;
                               });
                               if (_isOpen)
-                                _status = "Open";
+                                _status = "open";
                               else
-                                _status = "Closed";
+                                _status = "closed";
                               // print(_isOpen.toString());
-                            })
+                            },
+                          ),
+                        )
                       ],
                     ),
-                    // row2 for close time and status
+                    // row2 for close time and statuss
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Closes at 9.00pm",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
+                          _status == "closed"
+                              ? "Opens at 8:30am"
+                              : "Closes at 9.00pm",
+                          style: const TextStyle(
+                            color: Colors.white70,
+                            fontSize: 15,
                           ),
                         ),
-                        Text(
-                          _status,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Text(
+                            _status,
+                            style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 15,
+                            ),
                           ),
                         ),
                       ],
@@ -114,32 +124,32 @@ class _DrawyerPageState extends State<DrawyerPage> {
                     CustomDevider(),
                     CustomDrawerButton(
                       title: "Orders",
-                      icon: Icons.shopping_bag,
+                      icon: Icons.shopping_basket_outlined,
                       route: "/home_page",
                     ),
                     CustomDrawerButton(
                       title: "Menu",
-                      icon: Icons.book,
+                      icon: Icons.fastfood_outlined,
                       route: "/scanqr_page",
                     ),
                     CustomDrawerButton(
-                      title: "Revenew",
-                      icon: Icons.money,
+                      title: "Revenue",
+                      icon: Icons.attach_money_outlined,
                       route: "/locatenearby_page",
                     ),
                     CustomDrawerButton(
                       title: "Statitics",
-                      icon: Icons.graphic_eq,
+                      icon: Icons.data_usage_outlined,
                       route: "/favorites_page",
                     ),
                     CustomDrawerButton(
                       title: "Roles",
-                      icon: Icons.person,
+                      icon: Icons.group_outlined,
                       route: "/orders_page",
                     ),
                     CustomDrawerButton(
                       title: "Settings",
-                      icon: Icons.settings,
+                      icon: Icons.settings_outlined,
                       devider: false,
                       route: "/settings_page",
                     )
