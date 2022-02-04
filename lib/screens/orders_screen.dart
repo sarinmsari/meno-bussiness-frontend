@@ -3,7 +3,7 @@ import 'package:bookkikko_business/components/main_components.dart';
 import 'package:flutter/material.dart';
 
 class Orders extends StatefulWidget {
-  Orders({Key? key}) : super(key: key);
+  const Orders({Key? key}) : super(key: key);
 
   @override
   State<Orders> createState() => _OrdersState();
