@@ -152,13 +152,22 @@ class _OrdersState extends State<Orders> {
                           shape: BoxShape.circle,
                         ),
                         child: Center(
-                            child: Text(
-                          '5',
-                          style: TextStyle(
-                              fontSize: 35,
-                              color: _roleThemeTextColor,
-                              fontWeight: FontWeight.bold),
-                        )),
+                          child: _userRole == "WAITER" || _userRole == 'KITCHEN'
+                              ? Text(
+                                  '5',
+                                  style: TextStyle(
+                                      fontSize: 35,
+                                      color: _roleThemeTextColor,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              : Text(
+                                  '1200',
+                                  style: TextStyle(
+                                      fontSize: 22,
+                                      color: _roleThemeTextColor,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                        ),
                       ),
                       title: Text(
                         "Chicken Biriyani",
