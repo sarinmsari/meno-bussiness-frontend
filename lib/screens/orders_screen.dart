@@ -11,7 +11,13 @@ class Orders extends StatefulWidget {
 
 class _OrdersState extends State<Orders> {
   int _appliedFilter = 0;
-  final String _userRole = 'MANAGER';
+  final String _userRole = 'WAITER';
+//demo variables
+  int _tableNum = 5;
+  int _itemCount = 3;
+  int _orderTotalAmount = 1200;
+  int _leadingText = 0;
+//demo variables end
 
 //Dynamic theme to order boxes according to value of variable _userRole
   Color? _roleThemeColor;
@@ -25,6 +31,7 @@ class _OrdersState extends State<Orders> {
           _roleThemeColor = Colors.yellow;
           _roleButtonText = 'Prepared';
           _roleThemeTextColor = Colors.black87;
+          _leadingText = _itemCount;
         });
         break;
       case 'WAITER':
@@ -32,6 +39,7 @@ class _OrdersState extends State<Orders> {
           _roleThemeColor = Colors.blue;
           _roleButtonText = 'Delivered';
           _roleThemeTextColor = Colors.white;
+          _leadingText = _tableNum;
         });
         break;
       case 'CASHIER':
@@ -41,6 +49,7 @@ class _OrdersState extends State<Orders> {
           _roleThemeColor = Colors.green;
           _roleButtonText = 'Mark Paid';
           _roleThemeTextColor = Colors.white;
+          _leadingText = _orderTotalAmount;
         });
         break;
       default:
@@ -107,6 +116,7 @@ class _OrdersState extends State<Orders> {
                     ],
                     onSelected: (int value) {
                       setState(() {
+                        _tableNum = value == 0 ? 5 : value;
                         _appliedFilter = value;
                       });
                     },
@@ -151,14 +161,21 @@ class _OrdersState extends State<Orders> {
                           color: _roleThemeColor,
                           shape: BoxShape.circle,
                         ),
-                        child: Center(
+                        child: Container(
+                          padding: const EdgeInsets.all(10.0),
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
                             child: Text(
-                          '5',
-                          style: TextStyle(
-                              fontSize: 35,
-                              color: _roleThemeTextColor,
-                              fontWeight: FontWeight.bold),
-                        )),
+                              _leadingText.toString(),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: _roleThemeTextColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 35,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                       title: Text(
                         "Chicken Biriyani",
@@ -167,11 +184,11 @@ class _OrdersState extends State<Orders> {
                       ),
                       subtitle: Row(
                         children: [
-                          Text("count: 3"),
+                          Text("count: $_itemCount"),
                           SizedBox(
                             width: 15,
                           ),
-                          Text("table: 5"),
+                          Text("table: $_tableNum"),
                         ],
                       ),
                       trailing: ElevatedButton(
