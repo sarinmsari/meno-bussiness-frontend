@@ -1,5 +1,6 @@
 import 'package:bookkikko_business/components/orders_page/colorTheme.dart';
 import 'package:bookkikko_business/components/orders_page/sub_title_widget.dart';
+import 'package:bookkikko_business/global_components.dart';
 import 'package:flutter/material.dart';
 
 class OneOrderBox extends StatefulWidget {
@@ -38,9 +39,15 @@ class _OneOrderBoxState extends State<OneOrderBox> {
       clipBehavior: Clip.hardEdge,
       margin: const EdgeInsets.all(8.0),
       padding: const EdgeInsets.symmetric(vertical: 4.0),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        // color: Colors.grey,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 5,
+            color: Colors.grey.shade400,
+          ),
+        ],
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
       ),
       child: Column(
         children: [
@@ -102,10 +109,41 @@ class _OneOrderBoxState extends State<OneOrderBox> {
           ),
           if (_viewMoreDetails)
             Container(
-              width: double.infinity,
-              height: 40,
-              color: Colors.green,
-            )
+                width: double.infinity,
+                // color: Colors.green,
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Divider(
+                      color: Colors.grey,
+                    ),
+                    Text(
+                      "10/11/2022",
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Table No : 1"),
+                        Text("10.30"),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("CHCKEN BIRIYANI"),
+                        Text("10 X 120 INR"),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Total "),
+                        Text("1200 INR"),
+                      ],
+                    ),
+                  ],
+                ))
         ],
       ),
     );
