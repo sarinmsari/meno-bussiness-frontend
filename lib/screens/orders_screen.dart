@@ -14,7 +14,7 @@ class Orders extends StatefulWidget {
 
 class _OrdersState extends State<Orders> {
   int _appliedFilter = 0;
-  final String _userRole = 'CASHIER';
+  final String _userRole = 'CASHIER'.toUpperCase();
 
 //demo variables
   int _tableNum = 5;
@@ -30,6 +30,7 @@ class _OrdersState extends State<Orders> {
   @override
   Widget build(BuildContext context) {
     setUserRoleThemeColor(_userRole);
+    // print("order screen is built");
     return Scaffold(
       appBar: CustomAppBar(title: "Orders"),
       drawer: DrawyerPage(),
