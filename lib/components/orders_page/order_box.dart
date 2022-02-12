@@ -56,7 +56,7 @@ class _OrderBoxState extends State<OrderBox> {
       itemBuilder: (ctx, index) {
         return OneOrderBox(
           leadingText: _leadingText,
-          itemCount: index,
+          itemCount: _itemCount,
           userRole: widget.userRole,
           tableNumber: widget.tableNumber,
           index: index,

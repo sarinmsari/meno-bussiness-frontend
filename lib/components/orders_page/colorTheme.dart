@@ -1,36 +1,46 @@
 import 'package:flutter/material.dart';
 
-Color? roleThemeColor;
-Color? roleThemeTextColor;
+Color? roleThemeButtonColor;
+Color? roleThemeLeadingBgColor;
+Color? roleThemeButtonTextColor;
+Color? roleThemeLeadingTextColor;
 String roleButtonText = '';
 Color? rolePrimaryColor;
 
 void setUserRoleThemeColor(String role) {
   switch (role) {
     case 'KITCHEN':
-      roleThemeColor = Colors.yellow;
+      roleThemeButtonColor = Colors.yellow;
+      roleThemeLeadingBgColor = Colors.yellow;
       roleButtonText = 'Prepared';
-      roleThemeTextColor = Colors.black87;
+      roleThemeButtonTextColor = Colors.black87;
+      roleThemeLeadingTextColor = Colors.black87;
       rolePrimaryColor = Colors.black87;
       break;
     case 'WAITER':
-      roleThemeColor = Colors.blue;
+      roleThemeButtonColor = Colors.blue;
+      roleThemeLeadingBgColor = Colors.blue;
       roleButtonText = 'Delivered';
-      roleThemeTextColor = Colors.white;
+      roleThemeButtonTextColor = Colors.white;
+      roleThemeLeadingTextColor = Colors.white;
       rolePrimaryColor = Colors.blue;
       break;
     case 'CASHIER':
     case 'MANAGER':
     case 'OWNER':
-      roleThemeColor = Colors.green;
+      roleThemeButtonColor = Colors.green;
+      roleThemeLeadingBgColor = Colors.white24;
       roleButtonText = 'Mark Paid';
-      roleThemeTextColor = Colors.white;
+      roleThemeButtonTextColor = Colors.white;
+      roleThemeLeadingTextColor = Colors.green;
+      rolePrimaryColor = Colors.green;
       rolePrimaryColor = Colors.green;
       break;
     default:
-      roleThemeColor = Colors.white;
+      roleThemeButtonColor = Colors.white;
       roleButtonText = '';
-      roleThemeTextColor = Colors.white;
+      roleThemeButtonTextColor = Colors.white;
+      roleThemeLeadingTextColor = Colors.white;
       rolePrimaryColor = Colors.white;
   }
 }

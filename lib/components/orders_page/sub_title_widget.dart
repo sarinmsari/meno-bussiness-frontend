@@ -17,18 +17,10 @@ class SubTitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (userRole !=
-        "CASHIER") // other user roles that need dropdown should be added here
-      return Row(
-        children: [
-          Text("count: $itemCount "),
-          SizedBox(
-            width: 15,
-          ),
-          Text("table: $tableNumber"),
-        ],
-      );
-    else
+    if (userRole == "CASHIER" ||
+        userRole == "MANAGER" ||
+        userRole ==
+            "OWNER") // other user roles that need dropdown should be added here
       return InkWell(
         onTap: () {
           // print("more details");
@@ -45,6 +37,16 @@ class SubTitleWidget extends StatelessWidget {
                 : Icons.arrow_drop_up_sharp),
           ],
         ),
+      );
+    else
+      return Row(
+        children: [
+          Text("count: $itemCount "),
+          SizedBox(
+            width: 15,
+          ),
+          Text("table: $tableNumber"),
+        ],
       );
   }
 }

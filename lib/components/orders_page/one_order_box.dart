@@ -16,7 +16,7 @@ class OneOrderBox extends StatefulWidget {
   final int leadingText;
   final String userRole;
   final int index;
-  final tableNumber;
+  final int tableNumber;
   final int itemCount;
 
   @override
@@ -25,7 +25,6 @@ class OneOrderBox extends StatefulWidget {
 
 class _OneOrderBoxState extends State<OneOrderBox> {
   bool _viewMoreDetails = false;
-
   void displayMoreDetails() {
     setState(() {
       _viewMoreDetails = !_viewMoreDetails;
@@ -59,18 +58,18 @@ class _OneOrderBoxState extends State<OneOrderBox> {
               width: 75,
               height: 75,
               decoration: BoxDecoration(
-                color: roleThemeColor,
+                color: roleThemeLeadingBgColor,
                 shape: BoxShape.circle,
               ),
               child: Container(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(8.0),
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(
                     widget.leadingText.toString(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: roleThemeTextColor,
+                      color: roleThemeLeadingTextColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 35,
                     ),
@@ -92,7 +91,7 @@ class _OneOrderBoxState extends State<OneOrderBox> {
             ),
             trailing: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: roleThemeColor,
+                primary: roleThemeButtonColor,
                 padding: const EdgeInsets.fromLTRB(15, 12, 15, 12),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -103,7 +102,7 @@ class _OneOrderBoxState extends State<OneOrderBox> {
               },
               child: Text(
                 roleButtonText,
-                style: TextStyle(fontSize: 18, color: roleThemeTextColor),
+                style: TextStyle(fontSize: 18, color: roleThemeButtonTextColor),
               ),
             ),
           ),
@@ -118,28 +117,47 @@ class _OneOrderBoxState extends State<OneOrderBox> {
                     Divider(
                       color: Colors.grey,
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "10/11/2022",
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                        ),
+                        Text(
+                          "Table no.: ${widget.tableNumber.toString()}",
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                        ),
+                      ],
+                    ),
                     Text(
-                      "10/11/2022",
+                      "10.30",
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
+                    SizedBox(
+                      height: 15,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Table No : 1"),
-                        Text("10.30"),
+                        Text("Chicken Biriyani"),
+                        Text("${widget.itemCount} x 120 INR"),
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("CHCKEN BIRIYANI"),
-                        Text("10 X 120 INR"),
-                      ],
+                    SizedBox(
+                      height: 15,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Total "),
-                        Text("1200 INR"),
+                        Text(
+                          "Total ",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "${widget.itemCount * 120}",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ],
                     ),
                   ],

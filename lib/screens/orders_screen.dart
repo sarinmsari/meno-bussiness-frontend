@@ -14,7 +14,7 @@ class Orders extends StatefulWidget {
 
 class _OrdersState extends State<Orders> {
   int _appliedFilter = 0;
-  final String _userRole = 'CASHIER'.toUpperCase();
+  final String _userRole = 'cashier'.toUpperCase();
 
 //demo variables
   int _tableNum = 5;
