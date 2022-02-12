@@ -1,4 +1,7 @@
+import 'package:bookkikko_business/components/common_components/one_order_box_skelton.dart';
 import 'package:bookkikko_business/components/main_components.dart';
+import 'package:bookkikko_business/components/orders_page/filter_section.dart';
+import 'package:bookkikko_business/components/orders_page/one_order_box.dart';
 import 'package:bookkikko_business/screens/drawyer_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -19,16 +22,16 @@ class MenuScreen extends StatelessWidget {
         separatorBuilder: (ctx, index) => SizedBox(
           height: 20,
         ),
-        itemBuilder: (ctx, index) => ListTile(
-          leading: Image(image: NetworkImage(_imageAddress)),
-          title: Text("Chicken Biriyani"),
+        itemBuilder: (ctx, index) => OneOrderBoxSkelton(
+          leading: Image(
+            image: NetworkImage(_imageAddress),
+          ),
+          titleText: "Chichekn Biriyani",
           subtitle: Row(
             children: [
-              Text("Price : 100"),
-              SizedBox(
-                width: 20,
-              ),
-              Text("Category : Non-veg")
+              Text("Price : 120"),
+              SizedBox(width: 20),
+              Text("Category : Non-Veg")
             ],
           ),
           trailing: IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
