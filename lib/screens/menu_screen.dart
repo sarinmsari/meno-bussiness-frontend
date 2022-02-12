@@ -16,7 +16,112 @@ class MenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: "Menu"),
+      appBar: CustomAppBar(
+        title: "Menu",
+        actions: [
+          IconButton(
+            onPressed: () {
+              showDialog(
+                barrierDismissible: true,
+                context: context,
+                builder: (_) => AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  title: Center(child: Text("Add New Dish Item")),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Item name',
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      const TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Item price',
+                        ),
+                        keyboardType: TextInputType.number,
+                      ),
+                      PopupMenuButton(
+                        child: Icon(Icons.menu),
+                        itemBuilder: (ctx) => <PopupMenuItem>[
+                          PopupMenuItem(
+                            child: Text("item1"),
+                            value: 0,
+                          ),
+                          PopupMenuItem(
+                            child: Text("item2"),
+                            value: 0,
+                          ),
+                          PopupMenuItem(
+                            child: Text("item3"),
+                            value: 0,
+                          ),
+                          PopupMenuItem(
+                            child: Text("item4"),
+                            value: 0,
+                          ),
+                          PopupMenuItem(
+                            child: Text("item5"),
+                            value: 0,
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                textStyle: TextStyle(fontSize: 20),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 20),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text("Cancel"),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                textStyle: TextStyle(fontSize: 20),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 20),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text("Add"),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              );
+            },
+            icon: Icon(
+              Icons.add,
+              color: Colors.black,
+            ),
+          )
+        ],
+      ),
       drawer: DrawyerPage(),
       body: DefaultTabController(
         length: 2,
