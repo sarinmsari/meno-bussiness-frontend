@@ -1,5 +1,5 @@
 import 'package:bookkikko_business/components/common_components/one_order_box_skelton.dart';
-import 'package:bookkikko_business/components/common_components/tab_bar_components.dart';
+import 'package:bookkikko_business/components/common_components/tab_bar_text.dart';
 import 'package:bookkikko_business/components/main_components.dart';
 import 'package:bookkikko_business/components/orders_page/filter_section.dart';
 import 'package:bookkikko_business/components/orders_page/one_order_box.dart';
