@@ -1,3 +1,4 @@
+import 'package:bookkikko_business/screens/menu_screen.dart';
 import 'package:flutter/material.dart';
 
 import './screens/orders_screen.dart';
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Orders(),
+      home: MenuScreen(),
     );
   }
 }
