@@ -129,7 +129,7 @@ class MenuScreen extends StatelessWidget {
           children: [
             Container(
               margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-              height: 45,
+              // height: 45,
               width: double.infinity,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
@@ -141,7 +141,10 @@ class MenuScreen extends StatelessWidget {
                   border: Border.all(color: Colors.grey.shade900),
                   color: Colors.white,
                 ),
-                tabs: [TabBarText("Items"), TabBarText("Category")],
+                tabs: [
+                  Tab(child: TabBarText("Items")),
+                  Tab(child: TabBarText("Category"))
+                ],
               ),
             ),
             Expanded(
