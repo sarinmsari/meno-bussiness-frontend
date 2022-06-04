@@ -2,6 +2,7 @@ import 'package:bookkikko_business/components/common_components/one_order_box_sk
 import 'package:bookkikko_business/components/drawer_components.dart';
 import 'package:bookkikko_business/components/main_components.dart';
 import 'package:bookkikko_business/screens/drawyer_screen.dart';
+import 'package:bookkikko_business/screens/individual_role_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -25,6 +26,12 @@ class RolePage extends StatelessWidget {
               children: [Text("More Details"), Icon(Icons.arrow_drop_down)],
             ),
             trailing: Icon(Icons.arrow_forward_ios_rounded),
+            listTileOnTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => IndividualRolePage()));
+            },
           ),
         ),
       ),
