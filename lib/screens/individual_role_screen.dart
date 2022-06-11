@@ -16,7 +16,9 @@ class IndividualRoleScreen extends StatelessWidget {
         title: roleName,
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, "/role_form_screen");
+              },
               icon: Icon(
                 Icons.add,
                 color: Colors.black,

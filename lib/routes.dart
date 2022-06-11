@@ -5,6 +5,7 @@ import 'package:bookkikko_business/screens/error_screen.dart';
 import 'package:bookkikko_business/screens/individual_role_screen.dart';
 import 'package:bookkikko_business/screens/menu_screen.dart';
 import 'package:bookkikko_business/screens/orders_screen.dart';
+import 'package:bookkikko_business/screens/role_form_screen.dart';
 import 'package:bookkikko_business/screens/role_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,9 @@ Route<dynamic> userRouteGenerator(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (ctx) => IndividualRoleScreen(roleName: args.roleName),
       );
-
+    case "/role_form_screen":
+      return MaterialPageRoute(builder: (ctx) => RoleFormScreen());
+    // navigate to role_form_screen
     default:
       return MaterialPageRoute(builder: (ctx) => ErrorScreen());
   }
