@@ -1,6 +1,7 @@
 import 'package:bookkikko_business/argument_objects/arguments.dart';
 import 'package:bookkikko_business/components/main_components.dart';
 import 'package:bookkikko_business/screens/drawyer_screen.dart';
+import 'package:bookkikko_business/screens/error_screen.dart';
 import 'package:bookkikko_business/screens/individual_role_screen.dart';
 import 'package:bookkikko_business/screens/menu_screen.dart';
 import 'package:bookkikko_business/screens/orders_screen.dart';
@@ -27,17 +28,7 @@ Route<dynamic> userRouteGenerator(RouteSettings settings) {
       );
 
     default:
-      return MaterialPageRoute(
-        builder: (ctx) => Scaffold(
-          appBar: CustomAppBar(title: "Error"),
-          drawer: DrawyerPage(),
-          body: SafeArea(
-            child: Center(
-              child: Text("Invalid route or page not found"),
-            ),
-          ),
-        ),
-      );
+      return MaterialPageRoute(builder: (ctx) => ErrorScreen());
   }
 
   throw Exception("Switch case in main page didn't work");
