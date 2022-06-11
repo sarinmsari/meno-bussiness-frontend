@@ -2,13 +2,14 @@ import 'package:bookkikko_business/global_components.dart';
 import 'package:flutter/material.dart';
 
 class CustomDrawerButton extends StatelessWidget {
-  CustomDrawerButton({
-    Key? key,
-    required this.title,
-    required this.icon,
-    this.devider = true,
-    required this.route,
-  }) : super(key: key);
+  CustomDrawerButton(
+      {Key? key,
+      required this.title,
+      required this.icon,
+      this.devider = true,
+      required this.route,
+      this.arguments})
+      : super(key: key);
   final String title;
   final IconData icon;
 
@@ -16,12 +17,13 @@ class CustomDrawerButton extends StatelessWidget {
   final Color _fontColor2 = Colors.white30;
   final bool? devider;
   final String route;
+  Object? arguments;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushReplacementNamed(context, route);
+        Navigator.pushReplacementNamed(context, route, arguments: arguments);
       },
       child: Column(
         children: [

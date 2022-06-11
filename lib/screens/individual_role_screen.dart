@@ -4,16 +4,16 @@ import 'package:bookkikko_business/screens/drawyer_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 
-class IndividualRolePage extends StatelessWidget {
-  IndividualRolePage({Key? key}) : super(key: key);
+class IndividualRoleScreen extends StatelessWidget {
+  IndividualRoleScreen({Key? key, required this.roleName}) : super(key: key);
   final String _imageUrl =
       "https://friendlystock.com/wp-content/uploads/2018/06/3-dabbing-chef-character-vector-cartoon-clipart.jpg";
-
+  final String roleName;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: "Cheff Role",
+        title: roleName,
         actions: [
           IconButton(
               onPressed: () {},

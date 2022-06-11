@@ -3,14 +3,14 @@ import 'package:bookkikko_business/components/role_from_page/custom_text_from_fi
 import 'package:bookkikko_business/screens/drawyer_screen.dart';
 import 'package:flutter/material.dart';
 
-class RoleFormPage extends StatefulWidget {
-  RoleFormPage({Key? key}) : super(key: key);
+class RoleFormScreen extends StatefulWidget {
+  RoleFormScreen({Key? key}) : super(key: key);
 
   @override
-  State<RoleFormPage> createState() => _RoleFormPageState();
+  State<RoleFormScreen> createState() => _RoleFormScreenState();
 }
 
-class _RoleFormPageState extends State<RoleFormPage> {
+class _RoleFormScreenState extends State<RoleFormScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String dropDownValue = "Male";
 

@@ -1,3 +1,4 @@
+import 'package:bookkikko_business/argument_objects/arguments.dart';
 import 'package:bookkikko_business/components/drawer_components.dart';
 import 'package:bookkikko_business/global_components.dart';
 import 'package:flutter/cupertino.dart';
@@ -125,12 +126,12 @@ class _DrawyerPageState extends State<DrawyerPage> {
                     CustomDrawerButton(
                       title: "Orders",
                       icon: Icons.shopping_basket_outlined,
-                      route: "/home_page",
+                      route: "/order_screen",
                     ),
                     CustomDrawerButton(
                       title: "Menu",
                       icon: Icons.fastfood_outlined,
-                      route: "/scanqr_page",
+                      route: "/menu_screen",
                     ),
                     CustomDrawerButton(
                       title: "Revenue",
@@ -145,7 +146,10 @@ class _DrawyerPageState extends State<DrawyerPage> {
                     CustomDrawerButton(
                       title: "Roles",
                       icon: Icons.group_outlined,
-                      route: "/orders_page",
+                      route: "/role_screen",
+                      arguments: RoleScreenArguments(
+                        roleName: "Manager",
+                      ),
                     ),
                     CustomDrawerButton(
                       title: "Settings",

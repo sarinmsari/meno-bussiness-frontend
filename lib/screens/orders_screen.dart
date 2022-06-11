@@ -5,14 +5,14 @@ import 'package:bookkikko_business/components/main_components.dart';
 import 'package:flutter/material.dart';
 import '../components/orders_page/colorTheme.dart';
 
-class Orders extends StatefulWidget {
-  const Orders({Key? key}) : super(key: key);
+class OrderScreen extends StatefulWidget {
+  const OrderScreen({Key? key}) : super(key: key);
 
   @override
-  State<Orders> createState() => _OrdersState();
+  State<OrderScreen> createState() => _OrderScreenState();
 }
 
-class _OrdersState extends State<Orders> {
+class _OrderScreenState extends State<OrderScreen> {
   int _appliedFilter = 0;
   final String _userRole = 'cashier'.toUpperCase();
 
