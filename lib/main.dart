@@ -1,14 +1,6 @@
-import 'package:bookkikko_business/argument_objects/arguments.dart';
 import 'package:bookkikko_business/routes.dart';
-import 'package:bookkikko_business/screens/drawyer_screen.dart';
-import 'package:bookkikko_business/screens/individual_role_screen.dart';
-import 'package:bookkikko_business/screens/menu_screen.dart';
-import 'package:bookkikko_business/screens/role_form_screen.dart';
-import 'package:bookkikko_business/screens/role_screen.dart';
-import 'package:flutter/material.dart';
 
-import './screens/orders_screen.dart';
-import 'components/main_components.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());

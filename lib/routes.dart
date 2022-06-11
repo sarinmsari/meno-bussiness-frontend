@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 Route<dynamic> userRouteGenerator(RouteSettings settings) {
   switch (settings.name) {
     case "/order_screen":
-      final args = settings.arguments;
       return MaterialPageRoute(builder: (ctx) => OrderScreen());
     case "/role_screen":
       final args = settings.arguments as RoleScreenArguments;
