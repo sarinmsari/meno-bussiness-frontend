@@ -22,9 +22,7 @@ class RolePage extends StatelessWidget {
               image: NetworkImage(_userUrl),
             ),
             titleText: "Cheff Role",
-            subtitle: Row(
-              children: [Text("More Details"), Icon(Icons.arrow_drop_down)],
-            ),
+            subtitle: Text("Tap to view more"),
             trailing: Icon(Icons.arrow_forward_ios_rounded),
             listTileOnTap: () {
               Navigator.push(
