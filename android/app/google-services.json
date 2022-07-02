@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1068776817423",
+    "project_id": "bookkikko",
+    "storage_bucket": "bookkikko.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1068776817423:android:d0dd40ce43f72c40b6747a",
+        "android_client_info": {
+          "package_name": "com.example.bookkikko_business"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1068776817423-ufdvl38tn9v8t3nfs3q2goll76q6vjdd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_mubBGcitrZcP-w-cTMi6smvD7GD3O9Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1068776817423-ufdvl38tn9v8t3nfs3q2goll76q6vjdd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1068776817423-en9rk1nghnm360b1uhgn4puqdf3pc86q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bookkikkoBusiness"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
