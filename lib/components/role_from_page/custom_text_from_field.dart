@@ -5,12 +5,14 @@ class CustomTextFormField extends StatelessWidget {
       {Key? key,
       required this.hintText,
       this.isNumber = false,
+      this.controller,
       this.isRequired = false})
       : super(key: key);
 
   final String hintText;
   final bool isNumber;
   final bool isRequired;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,7 @@ class CustomTextFormField extends StatelessWidget {
         vertical: 10,
       ),
       child: TextFormField(
+        controller: controller,
         keyboardType: (isNumber) ? TextInputType.number : TextInputType.name,
         validator: isRequired
             ? (String? value) {

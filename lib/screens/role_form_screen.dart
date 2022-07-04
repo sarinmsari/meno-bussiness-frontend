@@ -1,6 +1,7 @@
 import 'package:bookkikko_business/components/main_components.dart';
 import 'package:bookkikko_business/components/role_from_page/custom_text_from_field.dart';
 import 'package:bookkikko_business/screens/drawyer_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class RoleFormScreen extends StatefulWidget {
@@ -12,7 +13,17 @@ class RoleFormScreen extends StatefulWidget {
 
 class _RoleFormScreenState extends State<RoleFormScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   String dropDownValue = "Male";
+
+  // TextEditingControllers
+  TextEditingController? _firstnameController = TextEditingController();
+  TextEditingController? _lastnameController = TextEditingController();
+  TextEditingController? _ageController = TextEditingController();
+  TextEditingController? _address1Controller = TextEditingController();
+  TextEditingController? _address2Controller = TextEditingController();
+  TextEditingController? _phonenumber1Controller = TextEditingController();
+  TextEditingController? _phonenumber2Controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +41,11 @@ class _RoleFormScreenState extends State<RoleFormScreen> {
                 CustomTextFormField(
                   hintText: "Firstname *",
                   isRequired: true,
+                  controller: _firstnameController,
                 ),
                 CustomTextFormField(
                   hintText: "Lastname",
+                  controller: _lastnameController,
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,6 +57,7 @@ class _RoleFormScreenState extends State<RoleFormScreen> {
                         hintText: "Age *",
                         isNumber: true,
                         isRequired: true,
+                        controller: _ageController,
                       ),
                     ),
                     Column(
@@ -96,17 +110,21 @@ class _RoleFormScreenState extends State<RoleFormScreen> {
                 ),
                 CustomTextFormField(
                   hintText: "Address 1",
+                  controller: _address1Controller,
                 ),
                 CustomTextFormField(
                   hintText: "Address 2",
+                  controller: _address2Controller,
                 ),
                 CustomTextFormField(
                   hintText: "Phone Number 1 *",
+                  controller: _phonenumber1Controller,
                   isRequired: true,
                   isNumber: true,
                 ),
                 CustomTextFormField(
                   hintText: "Phone Number 2",
+                  controller: _phonenumber2Controller,
                   isNumber: true,
                 ),
                 Padding(
@@ -120,8 +138,39 @@ class _RoleFormScreenState extends State<RoleFormScreen> {
                       ),
                     ),
                     onPressed: () {
-                      _formKey.currentState!.validate();
-                      // print(dropDownValue);
+                      var validationStatus = _formKey.currentState!.validate();
+
+                      //firebase test
+                      if (validationStatus) {
+                        var db = FirebaseFirestore.instance;
+
+                        final user = <String, dynamic>{
+                          "restaurant_id": 112233, // hardcoded as of now
+                          "firstname": _firstnameController!.text,
+                          "lastname": _lastnameController != null
+                              ? _lastnameController!.text
+                              : "",
+                          "age": _ageController!.text,
+                          "gender": dropDownValue,
+                          "address_1": _address1Controller != null
+                              ? _address1Controller!.text
+                              : "",
+                          "address_2": _address2Controller != null
+                              ? _address2Controller!.text
+                              : "",
+                        };
+
+                        // Add a new document with a generated ID
+                        db.collection("managers").add(user).then(
+                            (DocumentReference doc) => print(
+                                'DocumentSnapshot added with ID: ${doc.id}'));
+
+                        // print(dropDownValue);
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("Successful"),
+                          backgroundColor: Color.fromARGB(255, 29, 221, 35),
+                        ));
+                      }
                     },
                     child: Text(
                       "SAVE",
