@@ -24,7 +24,11 @@ Route<dynamic> userRouteGenerator(RouteSettings settings) {
         builder: (ctx) => IndividualRoleScreen(roleName: args.roleName),
       );
     case "/role_form_screen":
-      return MaterialPageRoute(builder: (ctx) => RoleFormScreen());
+      final args = settings.arguments as RoleFormScreenArguments;
+      return MaterialPageRoute(
+          builder: (ctx) => RoleFormScreen(
+                roleName: args.roleName,
+              ));
     // navigate to role_form_screen
     default:
       return MaterialPageRoute(builder: (ctx) => ErrorScreen());
