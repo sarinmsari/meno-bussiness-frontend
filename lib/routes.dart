@@ -14,11 +14,7 @@ Route<dynamic> userRouteGenerator(RouteSettings settings) {
     case "/order_screen":
       return MaterialPageRoute(builder: (ctx) => OrderScreen());
     case "/role_screen":
-      final args = settings.arguments as RoleScreenArguments;
-      return MaterialPageRoute(
-          builder: (ctx) => RoleScreen(
-                roleName: args.roleName,
-              ));
+      return MaterialPageRoute(builder: (ctx) => RoleScreen());
     case "/menu_screen":
       return MaterialPageRoute(builder: (ctx) => MenuScreen());
     case "/individual_role_screen":

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const RESTAURANT_ID = "112233";
+
 class CustomDevider extends StatelessWidget {
   CustomDevider({
     Key? key,

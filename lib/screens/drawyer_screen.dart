@@ -147,9 +147,6 @@ class _DrawyerPageState extends State<DrawyerPage> {
                       title: "Roles",
                       icon: Icons.group_outlined,
                       route: "/role_screen",
-                      arguments: RoleScreenArguments(
-                        roleName: "Manager",
-                      ),
                     ),
                     CustomDrawerButton(
                       title: "Settings",
