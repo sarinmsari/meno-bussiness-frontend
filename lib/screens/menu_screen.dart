@@ -3,7 +3,9 @@ import 'package:bookkikko_business/components/common_components/tab_bar_text.dar
 import 'package:bookkikko_business/components/main_components.dart';
 import 'package:bookkikko_business/components/orders_page/filter_section.dart';
 import 'package:bookkikko_business/components/orders_page/one_order_box.dart';
+import 'package:bookkikko_business/global_components.dart';
 import 'package:bookkikko_business/screens/drawyer_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class MenuScreen extends StatelessWidget {
@@ -172,16 +174,47 @@ class MenuScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  ListView.builder(
-                    itemCount: 10,
-                    itemBuilder: (ctx, count) => OneOrderBoxSkelton(
-                      titleText: "Biriyani",
-                      trailing: IconButton(
-                        icon: Icon(Icons.edit),
-                        onPressed: () {},
-                      ),
-                    ),
-                  )
+                  FutureBuilder(
+                      future: FirebaseFirestore.instance
+                          .collection("categories")
+                          .where("restaurant_id", isEqualTo: RESTAURANT_ID)
+                          .limit(1)
+                          .get(),
+                      builder:
+                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        var snapshotData;
+                        if (snapshot.hasError) {
+                          return Align(child: Text("Something went wrong"));
+                        }
+
+                        if (snapshot.hasData) {
+                          snapshotData = snapshot.data!.docs[0];
+                          if (!snapshotData.exists) {
+                            return Align(
+                                child: Text("Document does not exits"));
+                          }
+                        }
+
+                        if (snapshot.connectionState == ConnectionState.done &&
+                            snapshotData != null) {
+                          List categories =
+                              (snapshotData.data() as Map)["category"];
+                          return ListView.builder(
+                            itemCount: categories.length,
+                            itemBuilder: (ctx, index) => OneOrderBoxSkelton(
+                              titleText: categories[index]["category_name"],
+                              trailing: IconButton(
+                                icon: Icon(Icons.edit),
+                                onPressed: () {},
+                              ),
+                            ),
+                          );
+                        }
+
+                        return Align(
+                          child: CircularProgressIndicator(),
+                        );
+                      })
                 ],
               ),
             ),
