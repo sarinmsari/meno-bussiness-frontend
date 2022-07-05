@@ -152,28 +152,62 @@ class MenuScreen extends StatelessWidget {
             Expanded(
               child: TabBarView(
                 children: [
-                  ListView.builder(
-                    itemCount: 5,
-                    itemBuilder: (ctx, index) => OneOrderBoxSkelton(
-                      leading: Image(
-                        width: 50,
-                        height: 50,
-                        image: NetworkImage(_imageAddress),
-                      ),
-                      titleText: "Chichekn Biriyani",
-                      subtitle: Row(
-                        children: [
-                          Text("Price : 120"),
-                          SizedBox(width: 20),
-                          Text("Category : Non-Veg")
-                        ],
-                      ),
-                      trailing: IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.edit),
-                      ),
-                    ),
-                  ),
+                  FutureBuilder(
+                      future: FirebaseFirestore.instance
+                          .collection("menu")
+                          .where("restaurant_id", isEqualTo: RESTAURANT_ID)
+                          .limit(1)
+                          .get(),
+                      builder:
+                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.hasError) {
+                          return Text("Something went wrong");
+                        }
+
+                        if (snapshot.hasData &&
+                            !snapshot.data!.docs[0].exists) {
+                          return Text("Document does not exist");
+                        }
+
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          var snapshotData = snapshot.data!.docs[0].data();
+                          Map<String, dynamic> data =
+                              snapshotData as Map<String, dynamic>;
+                          var items = data["items"];
+                          return ListView.builder(
+                            itemCount: data["items"].length,
+                            itemBuilder: (ctx, index) => OneOrderBoxSkelton(
+                              leading: Image(
+                                width: 50,
+                                height: 50,
+                                image: NetworkImage(_imageAddress),
+                              ),
+                              titleText: items[index]["item_name"],
+                              subtitle: Row(
+                                children: [
+                                  Text("Price : ${items[index]['item_price']}"),
+                                  SizedBox(width: 20),
+                                  Expanded(
+                                    child: Text(
+                                      "Category : ${items[index]['item_category']}",
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              trailing: IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.edit),
+                              ),
+                            ),
+                          );
+                        }
+
+                        return Align(
+                          child: CircularProgressIndicator(),
+                        );
+                      }),
                   FutureBuilder(
                       future: FirebaseFirestore.instance
                           .collection("categories")
