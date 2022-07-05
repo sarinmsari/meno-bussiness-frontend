@@ -1,6 +1,23 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 const RESTAURANT_ID = "112233";
+// const RESTAURANT_ID = "112234";
+
+// firebase references ;
+late CollectionReference categoryRef;
+late CollectionReference menuRef;
+late CollectionReference restaurantRef;
+void initFirebaseReferences() {
+  categoryRef = FirebaseFirestore.instance.collection("categories");
+  menuRef = FirebaseFirestore.instance.collection("menu");
+  restaurantRef = FirebaseFirestore.instance.collection("restaurant");
+}
+
+// firebase data
+Future<QuerySnapshot<Map<String, dynamic>>>? restaurantData;
+Future<QuerySnapshot<Map<String, dynamic>>>? categoryData;
+Future<QuerySnapshot<Map<String, dynamic>>>? menuData;
 
 class CustomDevider extends StatelessWidget {
   CustomDevider({

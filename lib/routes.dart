@@ -7,10 +7,13 @@ import 'package:bookkikko_business/screens/menu_screen.dart';
 import 'package:bookkikko_business/screens/orders_screen.dart';
 import 'package:bookkikko_business/screens/role_form_screen.dart';
 import 'package:bookkikko_business/screens/role_screen.dart';
+import 'package:bookkikko_business/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic> userRouteGenerator(RouteSettings settings) {
   switch (settings.name) {
+    case "/splash_screen":
+      return MaterialPageRoute(builder: (ctx) => SplashScreen());
     case "/order_screen":
       return MaterialPageRoute(builder: (ctx) => OrderScreen());
     case "/role_screen":

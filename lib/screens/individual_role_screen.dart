@@ -36,8 +36,7 @@ class IndividualRoleScreen extends StatelessWidget {
       drawer: DrawyerPage(),
       body: SafeArea(
         child: FutureBuilder(
-          future: FirebaseFirestore.instance
-              .collection("restaurant")
+          future: restaurantRef
               .where("restaurant_id", isEqualTo: RESTAURANT_ID)
               .limit(1)
               .get(),

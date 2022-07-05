@@ -46,8 +46,7 @@ class _MenuItemAlertDialogState extends State<MenuItemAlertDialog> {
           height: 10,
         ),
         FutureBuilder(
-            future: FirebaseFirestore.instance
-                .collection("categories")
+            future: categoryRef
                 .where("restaurant_id", isEqualTo: RESTAURANT_ID)
                 .limit(1)
                 .get(),
@@ -104,15 +103,14 @@ class _MenuItemAlertDialogState extends State<MenuItemAlertDialog> {
           height: 10,
         ),
         AlertBoxCancelAddButton(onAddPress: () {
-          const DOC_ID = "2HWgmtuknXoncNwGJsrP"; // assume it is restaurant_id
-
           Navigator.pop(context);
-          FirebaseFirestore.instance
-              .collection("menu")
-              .doc(DOC_ID)
+          menuRef
+              .where("restaurant_id", isEqualTo: RESTAURANT_ID)
+              .limit(1)
               .get()
               .then((value) {
-            Map<String, dynamic> data = value.data() as Map<String, dynamic>;
+            Map<String, dynamic> data =
+                value.docs[0].data() as Map<String, dynamic>;
             List listRef = data["items"];
             listRef.add({
               "item_id": "item111",
@@ -127,12 +125,9 @@ class _MenuItemAlertDialogState extends State<MenuItemAlertDialog> {
               backgroundColor: Color.fromARGB(255, 51, 217, 57),
             ));
 
-            value.reference.update({"items": listRef});
+            value.docs[0].reference.update({"items": listRef});
           }).onError((error, stackTrace) {
-            FirebaseFirestore.instance
-                .collection("menu")
-                .doc(RESTAURANT_ID)
-                .set({
+            menuRef.doc(RESTAURANT_ID).set({
               "item_id": "item111",
               "item_name": nameController.text,
               "item_category": categoryValue,

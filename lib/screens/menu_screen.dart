@@ -108,8 +108,7 @@ class MenuScreen extends StatelessWidget {
               child: TabBarView(
                 children: [
                   FutureBuilder(
-                      future: FirebaseFirestore.instance
-                          .collection("menu")
+                      future: menuRef
                           .where("restaurant_id", isEqualTo: RESTAURANT_ID)
                           .limit(1)
                           .get(),
@@ -164,8 +163,7 @@ class MenuScreen extends StatelessWidget {
                         );
                       }),
                   FutureBuilder(
-                      future: FirebaseFirestore.instance
-                          .collection("categories")
+                      future: categoryRef
                           .where("restaurant_id", isEqualTo: RESTAURANT_ID)
                           .limit(1)
                           .get(),
