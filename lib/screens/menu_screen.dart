@@ -1,6 +1,8 @@
 import 'package:bookkikko_business/components/common_components/one_order_box_skelton.dart';
 import 'package:bookkikko_business/components/common_components/tab_bar_text.dart';
 import 'package:bookkikko_business/components/main_components.dart';
+import 'package:bookkikko_business/components/menu_screen_components/alert_box_components.dart';
+import 'package:bookkikko_business/components/menu_screen_components/menu_alert_dialog_components.dart';
 import 'package:bookkikko_business/components/orders_page/filter_section.dart';
 import 'package:bookkikko_business/components/orders_page/one_order_box.dart';
 import 'package:bookkikko_business/global_components.dart';
@@ -15,6 +17,7 @@ class MenuScreen extends StatelessWidget {
   final String _imageAddress =
       "https://www.indianhealthyrecipes.com/wp-content/uploads/2019/02/hyderabadi-biryani-recipe-500x500.jpg";
   var _tabController;
+  var tabIndex;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,88 +32,40 @@ class MenuScreen extends StatelessWidget {
                 builder: (_) => AlertDialog(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  title: Center(child: Text("Add New Dish Item")),
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const TextField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Item name',
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      const TextField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Item price',
-                        ),
-                        keyboardType: TextInputType.number,
-                      ),
-                      PopupMenuButton(
-                        child: Icon(Icons.menu),
-                        itemBuilder: (ctx) => <PopupMenuItem>[
-                          PopupMenuItem(
-                            child: Text("item1"),
-                            value: 0,
-                          ),
-                          PopupMenuItem(
-                            child: Text("item2"),
-                            value: 0,
-                          ),
-                          PopupMenuItem(
-                            child: Text("item3"),
-                            value: 0,
-                          ),
-                          PopupMenuItem(
-                            child: Text("item4"),
-                            value: 0,
-                          ),
-                          PopupMenuItem(
-                            child: Text("item5"),
-                            value: 0,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                textStyle: TextStyle(fontSize: 20),
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 20),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
+                      Container(
+                          width: double.infinity,
+                          child: ElevatedButton(
                               onPressed: () {
                                 Navigator.pop(context);
+                                showDialog(
+                                    context: context,
+                                    builder: (_) {
+                                      return MenuItemAlertDialog();
+                                    });
                               },
-                              child: Text("Cancel"),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Expanded(
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                textStyle: TextStyle(fontSize: 20),
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 20),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text("Add"),
-                            ),
-                          ),
-                        ],
+                              child: Text("Add Item"))),
+                      Container(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              showDialog(
+                                  context: context,
+                                  builder: (_) => MenuCategoryAlertDialog());
+                            },
+                            child: Text("Add Category")),
+                      ),
+                      Container(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text("Cancel")),
                       )
                     ],
                   ),
