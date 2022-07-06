@@ -10,14 +10,29 @@ import 'package:bookkikko_business/screens/drawyer_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class MenuScreen extends StatelessWidget {
+class MenuScreen extends StatefulWidget {
   MenuScreen({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<MenuScreen> createState() => _MenuScreenState();
+}
+
+class _MenuScreenState extends State<MenuScreen> {
   final String _imageAddress =
       "https://www.indianhealthyrecipes.com/wp-content/uploads/2019/02/hyderabadi-biryani-recipe-500x500.jpg";
+
   var _tabController;
+
   var tabIndex;
+  void updateScreen() {
+    setState(() {
+      // rebuilding the widget
+      print("rebuilding...");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +59,9 @@ class MenuScreen extends StatelessWidget {
                                 showDialog(
                                     context: context,
                                     builder: (_) {
-                                      return MenuItemAlertDialog();
+                                      return MenuItemAlertDialog(
+                                        callback: updateScreen,
+                                      );
                                     });
                               },
                               child: Text("Add Item"))),
@@ -55,7 +72,9 @@ class MenuScreen extends StatelessWidget {
                               Navigator.pop(context);
                               showDialog(
                                   context: context,
-                                  builder: (_) => MenuCategoryAlertDialog());
+                                  builder: (_) => MenuCategoryAlertDialog(
+                                        callback: updateScreen,
+                                      ));
                             },
                             child: Text("Add Category")),
                       ),

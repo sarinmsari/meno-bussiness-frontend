@@ -4,9 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class MenuItemAlertDialog extends StatefulWidget {
-  MenuItemAlertDialog({
-    Key? key,
-  }) : super(key: key);
+  MenuItemAlertDialog({Key? key, this.callback}) : super(key: key);
+  void Function()? callback;
 
   @override
   State<MenuItemAlertDialog> createState() => _MenuItemAlertDialogState();
@@ -103,7 +102,6 @@ class _MenuItemAlertDialogState extends State<MenuItemAlertDialog> {
           height: 10,
         ),
         AlertBoxCancelAddButton(onAddPress: () {
-          Navigator.pop(context);
           menuRef
               .where("restaurant_id", isEqualTo: RESTAURANT_ID)
               .limit(1)
@@ -125,7 +123,10 @@ class _MenuItemAlertDialogState extends State<MenuItemAlertDialog> {
               backgroundColor: Color.fromARGB(255, 51, 217, 57),
             ));
 
+            if (widget.callback != null) widget.callback!();
+
             value.docs[0].reference.update({"items": listRef});
+            Navigator.pop(context);
           }).onError((error, stackTrace) {
             menuRef.doc(RESTAURANT_ID).set({
               "item_id": "item111",
@@ -136,6 +137,7 @@ class _MenuItemAlertDialogState extends State<MenuItemAlertDialog> {
               "item_created_date": "2019-05-28"
             });
             // document not found
+            Navigator.pop(context);
           });
         }, onCancelPress: () {
           Navigator.pop(context);
@@ -146,7 +148,8 @@ class _MenuItemAlertDialogState extends State<MenuItemAlertDialog> {
 }
 
 class MenuCategoryAlertDialog extends StatelessWidget {
-  MenuCategoryAlertDialog({Key? key}) : super(key: key);
+  MenuCategoryAlertDialog({Key? key, this.callback}) : super(key: key);
+  void Function()? callback;
   TextEditingController categoryController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -164,9 +167,7 @@ class MenuCategoryAlertDialog extends StatelessWidget {
           height: 10,
         ),
         AlertBoxCancelAddButton(onAddPress: () {
-          Navigator.pop(context);
-          var db = FirebaseFirestore.instance;
-          CollectionReference collection = db.collection("categories");
+          CollectionReference collection = categoryRef;
           collection
               .where("restaurant_id", isEqualTo: RESTAURANT_ID)
               .limit(1)
@@ -177,8 +178,16 @@ class MenuCategoryAlertDialog extends StatelessWidget {
               "category_id": "cat111",
               "category_name": categoryController.text
             });
-            category.docs[0].reference.update({"category": copyList}).then(
-                (value) => print("successfully updated list"));
+            category.docs[0].reference
+                .update({"category": copyList}).then((value) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text("Successfully added category"),
+                backgroundColor: Colors.green,
+              ));
+              print("successfully updated list");
+              if (callback != null) callback!();
+              Navigator.pop(context);
+            });
           }).onError((error, stackTrace) {
             // if no data found with existing restaurant id ,
             // create new data set
