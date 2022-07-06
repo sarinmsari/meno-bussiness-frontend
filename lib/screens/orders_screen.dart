@@ -14,7 +14,7 @@ class OrderScreen extends StatefulWidget {
 
 class _OrderScreenState extends State<OrderScreen> {
   int _appliedFilter = 0;
-  final String _userRole = 'cashier'.toUpperCase();
+  final String _userRole = 'waiter'.toUpperCase();
 
 //demo variables
   int _tableNum = 5;

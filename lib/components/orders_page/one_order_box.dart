@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:bookkikko_business/components/common_components/one_order_box_skelton.dart';
 import 'package:bookkikko_business/components/orders_page/colorTheme.dart';
 import 'package:bookkikko_business/components/orders_page/sub_title_widget.dart';
 import 'package:bookkikko_business/global_components.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class OneOrderBox extends StatefulWidget {
@@ -11,11 +14,13 @@ class OneOrderBox extends StatefulWidget {
       required this.itemCount,
       required this.userRole,
       required this.tableNumber,
-      required this.index})
+      required this.index,
+      required this.contentText})
       : super(key: key);
 
   final int leadingText;
   final String userRole;
+  final String contentText;
   final int index;
   final int tableNumber;
   final int itemCount;
@@ -59,7 +64,7 @@ class _OneOrderBoxState extends State<OneOrderBox> {
           ),
         ),
       ),
-      titleText: "ChickenBiriyani",
+      titleText: widget.contentText,
       subtitle: SubTitleWidget(
         userRole: widget.userRole,
         tableNumber: widget.tableNumber,
@@ -77,6 +82,23 @@ class _OneOrderBoxState extends State<OneOrderBox> {
         ),
         onPressed: () {
           print('Order no.${widget.index} delivered');
+          FirebaseFirestore.instance.collection("orders").add(
+            {
+              "order_id": "CETLY001",
+              "user_id": "aforapple",
+              "restaurant_id": "restaurantid001",
+              "total_price": "105",
+              "order_date": "2021-10-28",
+              "is_active": true,
+              "items": [
+                {
+                  "item_id": "item${Random().nextInt(999)}",
+                  "quantity": "1",
+                  "one_item_price": "99"
+                },
+              ]
+            },
+          ).then((value) => print("successful"));
         },
         child: Text(
           roleButtonText,
