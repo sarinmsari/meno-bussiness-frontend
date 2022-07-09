@@ -152,7 +152,7 @@ class _DrawyerPageState extends State<DrawyerPage> {
                       title: "Settings",
                       icon: Icons.settings_outlined,
                       devider: false,
-                      route: "/settings_page",
+                      route: "/settings_screen",
                     )
                   ],
                 ),

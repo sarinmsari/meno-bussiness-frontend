@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 const RESTAURANT_ID = "112233";
+const APP_NAME = 'M E N O';
+const APP_TAG_LINE = 'The Pocket Menu';
+
 // const RESTAURANT_ID = "112234";
 
 // firebase references ;

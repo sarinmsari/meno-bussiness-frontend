@@ -1,7 +1,11 @@
 import 'package:bookkikko_business/firebase_options.dart';
 import 'package:bookkikko_business/global_components.dart';
+import 'package:bookkikko_business/screens/signin_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:bookkikko_business/authentication/auth_global_credentials.dart'
+    as auth_globals;
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -17,22 +21,29 @@ class _SplashScreenState extends State<SplashScreen> {
 
     //TODO : update with real database
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-      initializeFirebase();
+      initialConfig();
     });
 
     super.initState();
   }
 
-  void initializeFirebase() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    print("firebase initialized");
+  void initialConfig() {
+    // WidgetsFlutterBinding.ensureInitialized();
+    // await Firebase.initializeApp(
+    //   options: DefaultFirebaseOptions.currentPlatform,
+    // );
+    // print("firebase initialized");
     //initializing refernces
     initFirebaseReferences();
-    Future.delayed(Duration(seconds: 1),
-        () => Navigator.pushReplacementNamed(context, '/menu_screen'));
+    //checking if user is signed in
+
+    if (auth_globals.user == null) {
+      print("no user is logged in");
+      Navigator.pushReplacementNamed(context, "/signin_screen");
+    } else {
+      print("user is logged in with uid ${auth_globals.user?.uid}");
+      Navigator.pushReplacementNamed(context, "menu_screen");
+    }
   }
 
   @override
