@@ -1,3 +1,4 @@
+import 'package:bookkikko_business/authentication/auth_global_credentials.dart';
 import 'package:bookkikko_business/components/common_components/one_order_box_skelton.dart';
 import 'package:bookkikko_business/components/common_components/tab_bar_text.dart';
 import 'package:bookkikko_business/components/main_components.dart';
@@ -211,7 +212,9 @@ class _MenuScreenState extends State<MenuScreen> {
                               titleText: categories[index]["category_name"],
                               trailing: IconButton(
                                 icon: Icon(Icons.edit),
-                                onPressed: () {},
+                                onPressed: () {
+                                  print("icon button pressed");
+                                },
                               ),
                             ),
                           );

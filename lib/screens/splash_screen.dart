@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
-  void initialConfig() {
+  void initialConfig() async {
     // WidgetsFlutterBinding.ensureInitialized();
     // await Firebase.initializeApp(
     //   options: DefaultFirebaseOptions.currentPlatform,
@@ -42,6 +42,9 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacementNamed(context, "/signin_screen");
     } else {
       print("user is logged in with uid ${auth_globals.user?.uid}");
+      await auth_globals.findUserRoleForAuthenticatedUser();
+      print("current user role : " + auth_globals.currentUserRole.toString());
+
       Navigator.pushReplacementNamed(context, "menu_screen");
     }
   }
