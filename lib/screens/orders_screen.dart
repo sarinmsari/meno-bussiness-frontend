@@ -4,6 +4,8 @@ import 'package:bookkikko_business/screens/drawyer_screen.dart';
 import 'package:bookkikko_business/components/main_components.dart';
 import 'package:flutter/material.dart';
 import '../components/orders_page/colorTheme.dart';
+import 'package:bookkikko_business/authentication/auth_global_credentials.dart'
+    as auth_globals;
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({Key? key}) : super(key: key);
@@ -29,7 +31,11 @@ class _OrderScreenState extends State<OrderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    setUserRoleThemeColor(_userRole);
+    if (auth_globals.currentUserRole != null)
+      setUserRoleThemeColor(auth_globals.currentUserRole!.toUpperCase());
+    else
+      throw Exception(
+          "unable to set user role theme color since current user is null. (error on drawyer screen)");
     // print("order screen is built");
     return Scaffold(
       appBar: CustomAppBar(title: "Orders"),

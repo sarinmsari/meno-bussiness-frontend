@@ -1,4 +1,6 @@
 import 'package:bookkikko_business/authentication/auth_global_credentials.dart';
+import 'package:bookkikko_business/authentication/auth_global_credentials.dart'
+    as auth_globals;
 import 'package:bookkikko_business/components/common_components/one_order_box_skelton.dart';
 import 'package:bookkikko_business/components/common_components/tab_bar_text.dart';
 import 'package:bookkikko_business/components/main_components.dart';
@@ -40,63 +42,65 @@ class _MenuScreenState extends State<MenuScreen> {
       appBar: CustomAppBar(
         title: "Menu",
         actions: [
-          IconButton(
-            onPressed: () {
-              showDialog(
-                barrierDismissible: true,
-                context: context,
-                builder: (_) => AlertDialog(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
+          if (hasModificationPermissionForMenuScreen()) ...[
+            IconButton(
+              onPressed: () {
+                showDialog(
+                  barrierDismissible: true,
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  showDialog(
+                                      context: context,
+                                      builder: (_) {
+                                        return MenuItemAlertDialog(
+                                          callback: updateScreen,
+                                        );
+                                      });
+                                },
+                                child: Text("Add Item"))),
+                        Container(
                           width: double.infinity,
                           child: ElevatedButton(
                               onPressed: () {
                                 Navigator.pop(context);
                                 showDialog(
                                     context: context,
-                                    builder: (_) {
-                                      return MenuItemAlertDialog(
-                                        callback: updateScreen,
-                                      );
-                                    });
+                                    builder: (_) => MenuCategoryAlertDialog(
+                                          callback: updateScreen,
+                                        ));
                               },
-                              child: Text("Add Item"))),
-                      Container(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                              showDialog(
-                                  context: context,
-                                  builder: (_) => MenuCategoryAlertDialog(
-                                        callback: updateScreen,
-                                      ));
-                            },
-                            child: Text("Add Category")),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Text("Cancel")),
-                      )
-                    ],
+                              child: Text("Add Category")),
+                        ),
+                        Container(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text("Cancel")),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },
-            icon: Icon(
-              Icons.add,
-              color: Colors.black,
-            ),
-          )
+                );
+              },
+              icon: Icon(
+                Icons.add,
+                color: Colors.black,
+              ),
+            )
+          ]
         ],
       ),
       drawer: DrawyerPage(),
@@ -170,10 +174,13 @@ class _MenuScreenState extends State<MenuScreen> {
                                   )
                                 ],
                               ),
-                              trailing: IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.edit),
-                              ),
+                              trailing:
+                                  (hasModificationPermissionForMenuScreen())
+                                      ? IconButton(
+                                          onPressed: () {},
+                                          icon: Icon(Icons.edit),
+                                        )
+                                      : null,
                             ),
                           );
                         }
@@ -210,12 +217,15 @@ class _MenuScreenState extends State<MenuScreen> {
                             itemCount: categories.length,
                             itemBuilder: (ctx, index) => OneOrderBoxSkelton(
                               titleText: categories[index]["category_name"],
-                              trailing: IconButton(
-                                icon: Icon(Icons.edit),
-                                onPressed: () {
-                                  print("icon button pressed");
-                                },
-                              ),
+                              trailing:
+                                  (hasModificationPermissionForMenuScreen())
+                                      ? IconButton(
+                                          icon: Icon(Icons.edit),
+                                          onPressed: () {
+                                            print("icon button pressed");
+                                          },
+                                        )
+                                      : null,
                             ),
                           );
                         }

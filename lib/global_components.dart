@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:bookkikko_business/authentication/auth_global_credentials.dart'
+    as auth_globals;
 
 const RESTAURANT_ID = "112233";
 const APP_NAME = 'M E N O';
@@ -49,4 +51,15 @@ class CustomDevider extends StatelessWidget {
       height: 1,
     );
   }
+}
+
+bool userInAnyOf(List<String> items, String? element) {
+  if (element != null)
+    return items.contains(element.toLowerCase());
+  else
+    return false;
+}
+
+bool hasModificationPermissionForMenuScreen() {
+  return userInAnyOf(["manager", "waiter"], auth_globals.currentUserRole);
 }

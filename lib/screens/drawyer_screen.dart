@@ -1,4 +1,6 @@
 import 'package:bookkikko_business/argument_objects/arguments.dart';
+import 'package:bookkikko_business/authentication/auth_global_credentials.dart'
+    as auth_globals;
 import 'package:bookkikko_business/components/drawer_components.dart';
 import 'package:bookkikko_business/global_components.dart';
 import 'package:flutter/cupertino.dart';
@@ -123,6 +125,7 @@ class _DrawyerPageState extends State<DrawyerPage> {
                       ],
                     ),
                     CustomDevider(),
+
                     CustomDrawerButton(
                       title: "Orders",
                       icon: Icons.shopping_basket_outlined,
@@ -133,21 +136,26 @@ class _DrawyerPageState extends State<DrawyerPage> {
                       icon: Icons.fastfood_outlined,
                       route: "/menu_screen",
                     ),
-                    CustomDrawerButton(
-                      title: "Revenue",
-                      icon: Icons.attach_money_outlined,
-                      route: "/locatenearby_page",
-                    ),
-                    CustomDrawerButton(
-                      title: "Statitics",
-                      icon: Icons.data_usage_outlined,
-                      route: "/favorites_page",
-                    ),
-                    CustomDrawerButton(
-                      title: "Roles",
-                      icon: Icons.group_outlined,
-                      route: "/role_screen",
-                    ),
+
+                    if (auth_globals.currentUserRole?.toLowerCase() ==
+                        "manager") ...[
+                      CustomDrawerButton(
+                        title: "Revenue",
+                        icon: Icons.attach_money_outlined,
+                        route: "/locatenearby_page",
+                      ),
+                      CustomDrawerButton(
+                        title: "Statitics",
+                        icon: Icons.data_usage_outlined,
+                        route: "/favorites_page",
+                      ),
+                      CustomDrawerButton(
+                        title: "Roles",
+                        icon: Icons.group_outlined,
+                        route: "/role_screen",
+                      ),
+                    ],
+
                     CustomDrawerButton(
                       title: "Settings",
                       icon: Icons.settings_outlined,
