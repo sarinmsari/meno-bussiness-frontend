@@ -19,7 +19,7 @@ class _DrawyerPageState extends State<DrawyerPage> {
   final String subAppName = "Business";
 
   bool _isOpen = true;
-  String _status = "Open";
+  String _status = "Opened";
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -80,23 +80,24 @@ class _DrawyerPageState extends State<DrawyerPage> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Transform.scale(
-                          scale: 0.8,
-                          child: CupertinoSwitch(
-                            value: _isOpen,
-                            activeColor: Colors.green.shade300,
-                            onChanged: (val) {
-                              setState(() {
-                                _isOpen = val;
-                              });
-                              if (_isOpen)
-                                _status = "open";
-                              else
-                                _status = "closed";
-                              // print(_isOpen.toString());
-                            },
-                          ),
-                        )
+                        if (auth_globals.currentUserRole == "manager")
+                          Transform.scale(
+                            scale: 0.8,
+                            child: CupertinoSwitch(
+                              value: _isOpen,
+                              activeColor: Colors.green.shade300,
+                              onChanged: (val) {
+                                setState(() {
+                                  _isOpen = val;
+                                });
+                                if (_isOpen)
+                                  _status = "opened";
+                                else
+                                  _status = "closed";
+                                // print(_isOpen.toString());
+                              },
+                            ),
+                          )
                       ],
                     ),
                     // row2 for close time and statuss
@@ -112,6 +113,7 @@ class _DrawyerPageState extends State<DrawyerPage> {
                             fontSize: 15,
                           ),
                         ),
+                        // if (auth_globals.currentUserRole == "manager")
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           child: Text(
