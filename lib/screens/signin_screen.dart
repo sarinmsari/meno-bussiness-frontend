@@ -1,6 +1,8 @@
 import 'package:bookkikko_business/authentication/autentication_services.dart';
 import 'package:bookkikko_business/global_components.dart';
 import 'package:flutter/material.dart';
+import 'package:bookkikko_business/authentication/auth_global_credentials.dart'
+    as auth_globals;
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -25,7 +27,8 @@ class _State extends State<SignInScreen> {
           errorMessage = '';
         });
 
-        Navigator.of(context).pushReplacementNamed('/order_screen');
+        auth_globals.findUserRoleForAuthenticatedUser().then((value) =>
+            Navigator.of(context).pushReplacementNamed('/order_screen'));
       } else {
         setState(() {
           errorMessage = value;
