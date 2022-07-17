@@ -46,6 +46,7 @@ Route<dynamic> userRouteGenerator(RouteSettings settings) {
         return MaterialPageRoute(
             builder: (ctx) => RoleFormScreen(
                   roleName: args.roleName,
+                  callback: args.callback,
                 ));
       // navigate to role_form_screen
       case "/settings_screen":

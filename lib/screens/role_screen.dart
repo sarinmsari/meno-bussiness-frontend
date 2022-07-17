@@ -19,13 +19,13 @@ class RoleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var roles = FirebaseFirestore.instance.collection("roles");
+    // var roles = FirebaseFirestore.instance.collection("roles");
     return Scaffold(
       appBar: CustomAppBar(title: "Roles"),
       drawer: DrawyerPage(),
       body: SafeArea(
         child: FutureBuilder(
-            future: roles
+            future: roleRef
                 .where("restaurant_id", isEqualTo: RESTAURANT_ID)
                 .limit(1)
                 .get(),

@@ -15,10 +15,12 @@ final String imageAddress =
 late CollectionReference categoryRef;
 late CollectionReference menuRef;
 late CollectionReference restaurantRef;
+late CollectionReference roleRef;
 void initFirebaseReferences() {
   categoryRef = FirebaseFirestore.instance.collection("categories");
   menuRef = FirebaseFirestore.instance.collection("menu");
   restaurantRef = FirebaseFirestore.instance.collection("restaurant");
+  roleRef = FirebaseFirestore.instance.collection("roles");
 }
 
 // firebase data

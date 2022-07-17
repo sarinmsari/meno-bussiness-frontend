@@ -10,5 +10,6 @@ class IndividualRoleScreenArguments {
 
 class RoleFormScreenArguments {
   final String roleName;
-  RoleFormScreenArguments({required this.roleName});
+  Function()? callback;
+  RoleFormScreenArguments({required this.roleName, this.callback});
 }

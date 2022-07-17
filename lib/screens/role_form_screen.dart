@@ -6,8 +6,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class RoleFormScreen extends StatefulWidget {
-  RoleFormScreen({Key? key, required this.roleName}) : super(key: key);
+  RoleFormScreen({Key? key, required this.roleName, this.callback})
+      : super(key: key);
   final String roleName;
+  Function()? callback;
   @override
   State<RoleFormScreen> createState() => _RoleFormScreenState();
 }
@@ -194,6 +196,7 @@ class _RoleFormScreenState extends State<RoleFormScreen> {
                               content: Text("Successful"),
                               backgroundColor: Color.fromARGB(255, 29, 221, 35),
                             ));
+                            if (widget.callback != null) widget.callback!();
                           });
                         });
 
