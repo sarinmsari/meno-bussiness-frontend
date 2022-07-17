@@ -1,10 +1,14 @@
 import 'package:bookkikko_business/authentication/auth_global_credentials.dart';
 import 'package:bookkikko_business/authentication/auth_global_credentials.dart'
     as auth_globals;
+import 'package:bookkikko_business/components/common_components/centered_circular_progress_indicator.dart';
+import 'package:bookkikko_business/components/common_components/centered_text.dart';
 import 'package:bookkikko_business/components/common_components/one_order_box_skelton.dart';
 import 'package:bookkikko_business/components/common_components/tab_bar_text.dart';
 import 'package:bookkikko_business/components/main_components.dart';
 import 'package:bookkikko_business/components/menu_screen_components/alert_box_components.dart';
+import 'package:bookkikko_business/components/menu_screen_components/category_build_method.dart';
+import 'package:bookkikko_business/components/menu_screen_components/item_build_method.dart';
 import 'package:bookkikko_business/components/menu_screen_components/menu_alert_dialog_components.dart';
 import 'package:bookkikko_business/components/orders_page/filter_section.dart';
 import 'package:bookkikko_business/components/orders_page/one_order_box.dart';
@@ -132,149 +136,21 @@ class _MenuScreenState extends State<MenuScreen> {
               child: TabBarView(
                 children: [
                   FutureBuilder(
-                      future: menuRef
-                          .where("restaurant_id", isEqualTo: RESTAURANT_ID)
-                          .limit(1)
-                          .get(),
-                      builder:
-                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                        if (snapshot.hasError) {
-                          return Text("Something went wrong");
-                        }
-
-                        if (snapshot.hasData &&
-                            !snapshot.data!.docs[0].exists) {
-                          return Text("Document does not exist");
-                        }
-
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          var snapshotData = snapshot.data!.docs[0].data();
-                          Map<String, dynamic> data =
-                              snapshotData as Map<String, dynamic>;
-                          List items = data["items"];
-                          if (items.length == 0)
-                            return Align(
-                              child: Text("No Items found"),
-                            );
-                          return ListView.builder(
-                            itemCount: data["items"].length,
-                            itemBuilder: (ctx, index) => OneOrderBoxSkelton(
-                              leading: Image(
-                                width: 50,
-                                height: 50,
-                                image: NetworkImage(_imageAddress),
-                              ),
-                              titleText: items[index]["item_name"],
-                              subtitle: Row(
-                                children: [
-                                  Text("Price : ${items[index]['item_price']}"),
-                                  SizedBox(width: 20),
-                                  Expanded(
-                                    child: Text(
-                                      "Category : ${items[index]['item_category']}",
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              trailing:
-                                  (hasModificationPermissionForMenuScreen())
-                                      ? IconButton(
-                                          onPressed: () {
-                                            items.removeWhere((element) =>
-                                                element["item_category"] ==
-                                                items[index]["item_category"]);
-
-                                            // item removed , update db
-                                            menuRef
-                                                .where("restaurant_id",
-                                                    isEqualTo: RESTAURANT_ID)
-                                                .get()
-                                                .then((value) {
-                                              value.docs[0].reference
-                                                  .update({"items": items});
-                                              setState(() {
-                                                print("finsihed updation");
-                                              });
-                                            });
-                                          },
-                                          icon: Icon(Icons.delete),
-                                        )
-                                      : null,
-                            ),
-                          );
-                        }
-
-                        return Align(
-                          child: CircularProgressIndicator(),
-                        );
-                      }),
+                    future: menuRef
+                        .where("restaurant_id", isEqualTo: RESTAURANT_ID)
+                        .limit(1)
+                        .get(),
+                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) =>
+                        itemBuildMethod(context, snapshot, updateScreen),
+                  ),
                   FutureBuilder(
                       future: categoryRef
                           .where("restaurant_id", isEqualTo: RESTAURANT_ID)
                           .limit(1)
                           .get(),
-                      builder:
-                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                        var snapshotData;
-                        if (snapshot.hasError) {
-                          return Align(child: Text("Something went wrong"));
-                        }
-
-                        if (snapshot.hasData) {
-                          snapshotData = snapshot.data!.docs[0];
-                          if (!snapshotData.exists) {
-                            return Align(
-                                child: Text("Document does not exits"));
-                          }
-                        }
-
-                        if (snapshot.connectionState == ConnectionState.done &&
-                            snapshotData != null) {
-                          List categories =
-                              (snapshotData.data() as Map)["category"];
-                          // print("category is " + categories.toString());
-                          if (categories.isEmpty)
-                            return Align(
-                              child: Text("No categories found"),
-                            );
-                          return ListView.builder(
-                            itemCount: categories.length,
-                            itemBuilder: (ctx, index) => OneOrderBoxSkelton(
-                              titleText: categories[index]["category_name"],
-                              trailing:
-                                  (hasModificationPermissionForMenuScreen())
-                                      ? IconButton(
-                                          icon: Icon(Icons.delete),
-                                          onPressed: () {
-                                            categories.removeWhere((element) =>
-                                                element["category_name"] ==
-                                                categories[index]
-                                                    ["category_name"]);
-                                            categoryRef
-                                                .where("restaurant_id",
-                                                    isEqualTo: RESTAURANT_ID)
-                                                .get()
-                                                .then((value) {
-                                              value.docs[0].reference.update(
-                                                  {"category": categories});
-                                              setState(() {
-                                                print("updated");
-                                              });
-                                              // print("finsihed");
-                                            });
-                                          },
-                                        )
-                                      : null,
-                            ),
-                          );
-                        }
-
-                        return Align(
-                          child: CircularProgressIndicator(),
-                        );
-                      })
+                      builder: (context,
+                              AsyncSnapshot<QuerySnapshot> snapshot) =>
+                          categoryBuildMethod(context, snapshot, updateScreen))
                 ],
               ),
             ),

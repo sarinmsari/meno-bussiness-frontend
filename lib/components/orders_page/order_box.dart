@@ -1,3 +1,5 @@
+import 'package:bookkikko_business/components/common_components/centered_circular_progress_indicator.dart';
+import 'package:bookkikko_business/components/common_components/centered_text.dart';
 import 'package:bookkikko_business/components/orders_page/one_order_box.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -65,13 +67,11 @@ class _OrderBoxState extends State<OrderBox> {
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           List<Widget> resultList = <Widget>[];
           if (snapshot.hasError) {
-            return Align(child: Text('Something went wrong'));
+            return CenteredText('Something went wrong');
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Align(
-              child: CircularProgressIndicator(),
-            );
+            return CenteredCircularProgressIndicator();
           }
 
           // print(snapshot.data!.docs[0].data() as Map);
@@ -97,24 +97,6 @@ class _OrderBoxState extends State<OrderBox> {
           return ListView(
             children: resultList,
           );
-
-          // return Align(child: Text("Loading..."));
-
-          // return ListView.separated(
-          //   itemBuilder: (ctx, index) {
-          //     return OneOrderBox(
-          //       leadingText: _leadingText,
-          //       itemCount: _itemCount,
-          //       userRole: widget.userRole,
-          //       tableNumber: widget.tableNumber,
-          //       index: index,
-          //     );
-          //   },
-          //   separatorBuilder: (ctx, index) {
-          //     return Container();
-          //   },
-          //   itemCount: 10,
-          // );
         });
   }
 }

@@ -1,18 +1,19 @@
 import 'package:bookkikko_business/argument_objects/arguments.dart';
+import 'package:bookkikko_business/components/common_components/centered_circular_progress_indicator.dart';
+import 'package:bookkikko_business/components/common_components/centered_text.dart';
 import 'package:bookkikko_business/components/common_components/one_order_box_skelton.dart';
-import 'package:bookkikko_business/components/drawer_components.dart';
+
 import 'package:bookkikko_business/components/main_components.dart';
 import 'package:bookkikko_business/global_components.dart';
 import 'package:bookkikko_business/screens/drawyer_screen.dart';
-import 'package:bookkikko_business/screens/individual_role_screen.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/gestures.dart';
+
 import 'package:flutter/material.dart';
 
 class RoleScreen extends StatelessWidget {
   RoleScreen({Key? key}) : super(key: key);
-  String _userUrl =
+  final String _userUrl =
       "https://www.focusedu.org/wp-content/uploads/2018/12/circled-user-male-skin-type-1-2.png";
   String roleName = "Manager";
 
@@ -31,13 +32,12 @@ class RoleScreen extends StatelessWidget {
             builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasError) {
                 // throw Exception("snapshot fetching from role screen has error");
-                return Align(
-                    child:
-                        Text("snapshot fetching from role screen has error"));
+                return CenteredText(
+                    "snapshot fetching from role screen has error");
               }
               if (snapshot.hasData && !snapshot.data!.docs[0].exists) {
                 // throw Exception("snapshot has no data");
-                return Align(child: Text("snapshot has no data"));
+                return CenteredText("snapshot has no data");
               }
 
               if (snapshot.connectionState == ConnectionState.done) {
@@ -76,7 +76,7 @@ class RoleScreen extends StatelessWidget {
                 }
               }
 
-              return Align(child: CircularProgressIndicator());
+              return CenteredCircularProgressIndicator();
             }),
       ),
     );

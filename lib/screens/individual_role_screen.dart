@@ -1,4 +1,6 @@
 import 'package:bookkikko_business/argument_objects/arguments.dart';
+import 'package:bookkikko_business/components/common_components/centered_circular_progress_indicator.dart';
+import 'package:bookkikko_business/components/common_components/centered_text.dart';
 import 'package:bookkikko_business/components/common_components/one_order_box_skelton.dart';
 import 'package:bookkikko_business/components/main_components.dart';
 import 'package:bookkikko_business/global_components.dart';
@@ -70,42 +72,11 @@ class IndividualRoleScreen extends StatelessWidget {
                 });
                 return ListView(children: resultList);
               } else {
-                return Align(child: Text("No users found for ${roleName}"));
+                return CenteredText("No users found for ${roleName}");
               }
             }
 
-            return Align(
-              child: CircularProgressIndicator(),
-            );
-            //rest
-            // return ListView(
-            //   children: [
-            //     OneOrderBoxSkelton(
-            //       leading: Image(image: NetworkImage(_imageUrl)),
-            //       titleText: "Pablo Piccaso",
-            //       subtitle: Text("Tap to view more"),
-            //       trailing: IconButton(
-            //         onPressed: () {},
-            //         icon: Icon(
-            //           Icons.delete_outline,
-            //           color: Colors.black,
-            //         ),
-            //       ),
-            //     ),
-            //     OneOrderBoxSkelton(
-            //       leading: Image(image: NetworkImage(_imageUrl)),
-            //       titleText: "Leonardo Da Vinci",
-            //       subtitle: Text("Tap to view more"),
-            //       trailing: IconButton(
-            //         onPressed: () {},
-            //         icon: Icon(
-            //           Icons.delete_outline,
-            //           color: Colors.black,
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // );
+            return CenteredCircularProgressIndicator();
           },
         ),
       ),

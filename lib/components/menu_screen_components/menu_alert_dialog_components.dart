@@ -1,3 +1,5 @@
+import 'package:bookkikko_business/components/common_components/centered_circular_progress_indicator.dart';
+import 'package:bookkikko_business/components/common_components/centered_text.dart';
 import 'package:bookkikko_business/components/menu_screen_components/alert_box_components.dart';
 import 'package:bookkikko_business/global_components.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -51,11 +53,9 @@ class _MenuItemAlertDialogState extends State<MenuItemAlertDialog> {
                 .get(),
             builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasError)
-                return Align(child: Text("Something went wrong"));
+                return CenteredText("Something went wrong");
               if (snapshot.hasData && !snapshot.data!.docs[0].exists)
-                return Align(
-                  child: Text("Data not found"),
-                );
+                return CenteredText("Data not found");
               if (snapshot.connectionState == ConnectionState.done) {
                 Map<String, dynamic> snapshotData =
                     snapshot.data!.docs[0].data() as Map<String, dynamic>;
@@ -94,9 +94,7 @@ class _MenuItemAlertDialogState extends State<MenuItemAlertDialog> {
                     ),
                     itemBuilder: (ctx) => popupMenuList);
               }
-              return Align(
-                child: CircularProgressIndicator(),
-              );
+              return CenteredCircularProgressIndicator();
             }),
         SizedBox(
           height: 10,

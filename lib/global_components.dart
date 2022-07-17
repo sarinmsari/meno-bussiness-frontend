@@ -6,6 +6,8 @@ import 'package:bookkikko_business/authentication/auth_global_credentials.dart'
 const RESTAURANT_ID = "112233";
 const APP_NAME = 'M E N O';
 const APP_TAG_LINE = 'The Pocket Menu';
+final String imageAddress =
+    "https://www.indianhealthyrecipes.com/wp-content/uploads/2019/02/hyderabadi-biryani-recipe-500x500.jpg";
 
 // const RESTAURANT_ID = "112234";
 
