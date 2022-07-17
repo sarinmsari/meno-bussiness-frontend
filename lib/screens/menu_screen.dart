@@ -151,7 +151,11 @@ class _MenuScreenState extends State<MenuScreen> {
                           var snapshotData = snapshot.data!.docs[0].data();
                           Map<String, dynamic> data =
                               snapshotData as Map<String, dynamic>;
-                          var items = data["items"];
+                          List items = data["items"];
+                          if (items.length == 0)
+                            return Align(
+                              child: Text("No Items found"),
+                            );
                           return ListView.builder(
                             itemCount: data["items"].length,
                             itemBuilder: (ctx, index) => OneOrderBoxSkelton(
@@ -177,8 +181,25 @@ class _MenuScreenState extends State<MenuScreen> {
                               trailing:
                                   (hasModificationPermissionForMenuScreen())
                                       ? IconButton(
-                                          onPressed: () {},
-                                          icon: Icon(Icons.edit),
+                                          onPressed: () {
+                                            items.removeWhere((element) =>
+                                                element["item_category"] ==
+                                                items[index]["item_category"]);
+
+                                            // item removed , update db
+                                            menuRef
+                                                .where("restaurant_id",
+                                                    isEqualTo: RESTAURANT_ID)
+                                                .get()
+                                                .then((value) {
+                                              value.docs[0].reference
+                                                  .update({"items": items});
+                                              setState(() {
+                                                print("finsihed updation");
+                                              });
+                                            });
+                                          },
+                                          icon: Icon(Icons.delete),
                                         )
                                       : null,
                             ),
@@ -213,6 +234,11 @@ class _MenuScreenState extends State<MenuScreen> {
                             snapshotData != null) {
                           List categories =
                               (snapshotData.data() as Map)["category"];
+                          // print("category is " + categories.toString());
+                          if (categories.isEmpty)
+                            return Align(
+                              child: Text("No categories found"),
+                            );
                           return ListView.builder(
                             itemCount: categories.length,
                             itemBuilder: (ctx, index) => OneOrderBoxSkelton(
@@ -220,9 +246,24 @@ class _MenuScreenState extends State<MenuScreen> {
                               trailing:
                                   (hasModificationPermissionForMenuScreen())
                                       ? IconButton(
-                                          icon: Icon(Icons.edit),
+                                          icon: Icon(Icons.delete),
                                           onPressed: () {
-                                            print("icon button pressed");
+                                            categories.removeWhere((element) =>
+                                                element["category_name"] ==
+                                                categories[index]
+                                                    ["category_name"]);
+                                            categoryRef
+                                                .where("restaurant_id",
+                                                    isEqualTo: RESTAURANT_ID)
+                                                .get()
+                                                .then((value) {
+                                              value.docs[0].reference.update(
+                                                  {"category": categories});
+                                              setState(() {
+                                                print("updated");
+                                              });
+                                              // print("finsihed");
+                                            });
                                           },
                                         )
                                       : null,
