@@ -82,23 +82,23 @@ class _OneOrderBoxState extends State<OneOrderBox> {
         ),
         onPressed: () {
           print('Order no.${widget.index} delivered');
-          FirebaseFirestore.instance.collection("orders").add(
-            {
-              "order_id": "CETLY001",
-              "user_id": "aforapple",
-              "restaurant_id": "restaurantid001",
-              "total_price": "105",
-              "order_date": "2021-10-28",
-              "is_active": true,
-              "items": [
-                {
-                  "item_id": "item${Random().nextInt(999)}",
-                  "quantity": "1",
-                  "one_item_price": "99"
-                },
-              ]
-            },
-          ).then((value) => print("successful"));
+          // FirebaseFirestore.instance.collection("orders").add(
+          //   {
+          //     "order_id": "CETLY001",
+          //     "user_id": "aforapple",
+          //     "restaurant_id": "restaurantid001",
+          //     "total_price": "105",
+          //     "order_date": "2021-10-28",
+          //     "is_active": true,
+          //     "items": [
+          //       {
+          //         "item_id": "item${Random().nextInt(999)}",
+          //         "quantity": "1",
+          //         "one_item_price": "99"
+          //       },
+          //     ]
+          //   },
+          // ).then((value) => print("successful"));
         },
         child: Text(
           roleButtonText,

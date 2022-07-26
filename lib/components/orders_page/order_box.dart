@@ -65,6 +65,8 @@ class _OrderBoxState extends State<OrderBox> {
     return StreamBuilder<QuerySnapshot>(
         stream: orderStream,
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          print("building...");
+
           List<Widget> resultList = <Widget>[];
           if (snapshot.hasError) {
             return CenteredText('Something went wrong');
@@ -74,25 +76,36 @@ class _OrderBoxState extends State<OrderBox> {
             return CenteredCircularProgressIndicator();
           }
 
-          // print(snapshot.data!.docs[0].data() as Map);
+          print("data is ");
 
-          snapshot.data!.docs.forEach((DocumentSnapshot document) {
-            Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-            //data is map
-            // print("doc is : " + document.toString());
-            (data["items"] as List).forEach(
-              (item) => resultList.add(
-                OneOrderBox(
-                  leadingText: int.parse(item["quantity"]),
-                  contentText: item["item_id"],
-                  itemCount: int.parse(item["quantity"]),
-                  userRole: widget.userRole,
-                  tableNumber: widget.tableNumber,
-                  index: 1,
-                ),
+          if (snapshot.data!.docs.isEmpty)
+            resultList.add(
+              SizedBox(
+                height: 200,
+                child: CenteredText("No orders found"),
               ),
             );
-          });
+          else
+            snapshot.data!.docs
+              ..forEach((DocumentSnapshot document) {
+                Map<String, dynamic> data =
+                    document.data() as Map<String, dynamic>;
+                //data is map
+                // print("doc is : " + document.toString());
+
+                (data["items"] as List).forEach(
+                  (item) => resultList.add(
+                    OneOrderBox(
+                      leadingText: int.parse(item["quantity"]),
+                      contentText: item["item_id"],
+                      itemCount: int.parse(item["quantity"]),
+                      userRole: widget.userRole,
+                      tableNumber: widget.tableNumber,
+                      index: 1,
+                    ),
+                  ),
+                );
+              });
 
           return ListView(
             children: resultList,

@@ -148,7 +148,7 @@ class _RoleFormScreenState extends State<RoleFormScreen> {
                         var db = FirebaseFirestore.instance;
 
                         final user = <String, dynamic>{
-                          "restaurant_id": 112233, // hardcoded as of now
+                          // "restaurant_id": 112233, // hardcoded as of now
                           "firstname": _firstnameController!.text,
                           "lastname": _lastnameController != null
                               ? _lastnameController!.text
