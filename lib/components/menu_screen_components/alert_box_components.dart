@@ -11,10 +11,12 @@ class CustomDialogBoxLayout extends StatelessWidget {
     return AlertDialog(
       title: title != null ? Center(child: Text(title!)) : null,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: columnChildren,
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: columnChildren,
+        ),
       ),
     );
   }

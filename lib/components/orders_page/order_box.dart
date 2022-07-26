@@ -58,8 +58,10 @@ class _OrderBoxState extends State<OrderBox> {
   @override
   Widget build(BuildContext context) {
     // initializing the stream object
-    Stream<QuerySnapshot> orderStream =
-        FirebaseFirestore.instance.collection("orders").snapshots();
+    Stream<QuerySnapshot> orderStream = FirebaseFirestore.instance
+        .collection("orders")
+        .where("is_active", isEqualTo: true)
+        .snapshots();
 
     setLeadingText(widget.userRole);
     // print(orderStream);
