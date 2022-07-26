@@ -15,7 +15,9 @@ class OneOrderBox extends StatefulWidget {
       required this.userRole,
       required this.tableNumber,
       required this.index,
-      required this.contentText})
+      required this.contentText,
+      this.data,
+      this.totalPrice})
       : super(key: key);
 
   final int leadingText;
@@ -24,6 +26,8 @@ class OneOrderBox extends StatefulWidget {
   final int index;
   final int tableNumber;
   final int? itemCount;
+  final List? data;
+  final String? totalPrice;
 
   @override
   State<OneOrderBox> createState() => _OneOrderBoxState();
@@ -36,6 +40,26 @@ class _OneOrderBoxState extends State<OneOrderBox> {
       _viewMoreDetails = !_viewMoreDetails;
     });
     // print(_viewMoreDetails);
+  }
+
+  List<Widget> arrangeMoreDetailsItems() {
+    List<Widget> resultList = [];
+    if (widget.data != null)
+      widget.data!.forEach((element) {
+        resultList.add(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(element["item_id"].toString()),
+              Text("${element['quantity']} X ${element['one_item_price']} INR"),
+            ],
+          ),
+        );
+      });
+    else
+      print("no data found for more details to get");
+
+    return resultList;
   }
 
   @override
@@ -82,23 +106,6 @@ class _OneOrderBoxState extends State<OneOrderBox> {
         ),
         onPressed: () {
           print('Order no.${widget.index} delivered');
-          // FirebaseFirestore.instance.collection("orders").add(
-          //   {
-          //     "order_id": "CETLY001",
-          //     "user_id": "aforapple",
-          //     "restaurant_id": "restaurantid001",
-          //     "total_price": "105",
-          //     "order_date": "2021-10-28",
-          //     "is_active": true,
-          //     "items": [
-          //       {
-          //         "item_id": "item${Random().nextInt(999)}",
-          //         "quantity": "1",
-          //         "one_item_price": "99"
-          //       },
-          //     ]
-          //   },
-          // ).then((value) => print("successful"));
         },
         child: Text(
           roleButtonText,
@@ -126,18 +133,23 @@ class _OneOrderBoxState extends State<OneOrderBox> {
                       Text("10.30"),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("CHCKEN BIRIYANI"),
-                      Text("10 X 120 INR"),
-                    ],
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Text("CHCKEN BIRIYANI"),
+                  //     Text("10 X 120 INR"),
+                  //   ],
+                  // ),
+                  Column(
+                    children: arrangeMoreDetailsItems(),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Total "),
-                      Text("1200 INR"),
+                      (widget.totalPrice != null)
+                          ? Text("${widget.totalPrice} INR")
+                          : Text("error occured"),
                     ],
                   ),
                 ],

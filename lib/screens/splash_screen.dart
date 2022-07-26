@@ -21,6 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     //TODO : update with real database
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      initFirebaseReferences();
       initialConfig();
     });
 
@@ -34,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // );
     // print("firebase initialized");
     //initializing refernces
-    initFirebaseReferences();
+    // initFirebaseReferences();
     //checking if user is signed in
 
     if (auth_globals.user == null) {
@@ -43,7 +44,10 @@ class _SplashScreenState extends State<SplashScreen> {
     } else {
       print("user is logged in with uid ${auth_globals.user?.uid}");
       await auth_globals.findUserRoleForAuthenticatedUser();
-      print("current user role : " + auth_globals.currentUserRole.toString());
+      print("current user role : " +
+          auth_globals.currentUserRole.toString() +
+          " with uid " +
+          auth_globals.user!.uid.toString());
 
       Navigator.pushReplacementNamed(context, "menu_screen");
     }

@@ -31,7 +31,7 @@ class _State extends State<SignInScreen> {
             Navigator.of(context).pushReplacementNamed('/order_screen'));
       } else {
         setState(() {
-          errorMessage = value;
+          errorMessage = value.toString();
         });
       }
     }

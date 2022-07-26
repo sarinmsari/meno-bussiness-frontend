@@ -100,6 +100,8 @@ class _OrderBoxState extends State<OrderBox> {
                     userRole: widget.userRole,
                     tableNumber: widget.tableNumber,
                     index: 1,
+                    data: data["items"],
+                    totalPrice: data["total_price"],
                   ));
                 } else
                   (data["items"] as List).forEach(

@@ -23,10 +23,24 @@ Widget itemBuildMethod(
     return ListView.builder(
       itemCount: data["items"].length,
       itemBuilder: (ctx, index) => OneOrderBoxSkelton(
-        leading: Image(
+        leading: Image.network(
+          imageAddress,
           width: 50,
           height: 50,
-          image: NetworkImage(imageAddress),
+          errorBuilder: (context, child, error) {
+            return Text("error");
+          },
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) {
+              return child;
+            }
+
+            return CircularProgressIndicator();
+          },
+
+          // width: 50,
+          // height: 50,
+          // image: NetworkImage(imageAddress),
         ),
         titleText: items[index]["item_name"],
         subtitle: Row(

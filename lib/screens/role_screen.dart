@@ -1,4 +1,5 @@
 import 'package:bookkikko_business/argument_objects/arguments.dart';
+import 'package:bookkikko_business/authentication/auth_global_credentials.dart';
 import 'package:bookkikko_business/components/common_components/centered_circular_progress_indicator.dart';
 import 'package:bookkikko_business/components/common_components/centered_text.dart';
 import 'package:bookkikko_business/components/common_components/one_order_box_skelton.dart';
@@ -15,7 +16,7 @@ class RoleScreen extends StatelessWidget {
   RoleScreen({Key? key}) : super(key: key);
   final String _userUrl =
       "https://www.focusedu.org/wp-content/uploads/2018/12/circled-user-male-skin-type-1-2.png";
-  String roleName = "Manager";
+  String roleName = currentUserRole!;
 
   @override
   Widget build(BuildContext context) {

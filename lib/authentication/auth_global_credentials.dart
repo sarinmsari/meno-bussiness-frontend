@@ -15,8 +15,10 @@ Future<void> findUserRoleForAuthenticatedUser() async {
         .get();
 
     // print("finished");
-
-    currentUserRole = data.docs[0].data()["role"];
+    if (!data.docs.isEmpty)
+      currentUserRole = data.docs[0].data()["role"];
+    else
+      currentUserRole = "waiter";
   }
 }
 
