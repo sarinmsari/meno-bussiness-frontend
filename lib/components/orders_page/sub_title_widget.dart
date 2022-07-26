@@ -1,7 +1,9 @@
+import 'package:bookkikko_business/authentication/auth_global_credentials.dart';
+import 'package:bookkikko_business/global_components.dart';
 import 'package:flutter/material.dart';
 
 class SubTitleWidget extends StatelessWidget {
-  const SubTitleWidget(
+  SubTitleWidget(
       {Key? key,
       required this.userRole,
       required this.itemCount,
@@ -10,17 +12,17 @@ class SubTitleWidget extends StatelessWidget {
       required this.isDownButton})
       : super(key: key);
   final String userRole;
-  final itemCount;
+  var itemCount;
   final tableNumber;
   final bool isDownButton;
   final Function() displayMoreDetails;
 
   @override
   Widget build(BuildContext context) {
-    if (userRole == "CASHIER" ||
-        userRole == "MANAGER" ||
-        userRole ==
-            "OWNER") // other user roles that need dropdown should be added here
+    if (userInAnyOf([
+      "cashier",
+      "manager"
+    ], currentUserRole)) // other user roles that need dropdown should be added here
       return InkWell(
         onTap: () {
           // print("more details");

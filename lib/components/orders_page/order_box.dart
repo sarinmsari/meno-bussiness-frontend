@@ -1,6 +1,8 @@
+import 'package:bookkikko_business/authentication/auth_global_credentials.dart';
 import 'package:bookkikko_business/components/common_components/centered_circular_progress_indicator.dart';
 import 'package:bookkikko_business/components/common_components/centered_text.dart';
 import 'package:bookkikko_business/components/orders_page/one_order_box.dart';
+import 'package:bookkikko_business/global_components.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -76,8 +78,6 @@ class _OrderBoxState extends State<OrderBox> {
             return CenteredCircularProgressIndicator();
           }
 
-          print("data is ");
-
           if (snapshot.data!.docs.isEmpty)
             resultList.add(
               SizedBox(
@@ -92,19 +92,28 @@ class _OrderBoxState extends State<OrderBox> {
                     document.data() as Map<String, dynamic>;
                 //data is map
                 // print("doc is : " + document.toString());
-
-                (data["items"] as List).forEach(
-                  (item) => resultList.add(
-                    OneOrderBox(
-                      leadingText: int.parse(item["quantity"]),
-                      contentText: item["item_id"],
-                      itemCount: int.parse(item["quantity"]),
-                      userRole: widget.userRole,
-                      tableNumber: widget.tableNumber,
-                      index: 1,
+                if (userInAnyOf(["manager", "cashier"], currentUserRole)) {
+                  resultList.add(OneOrderBox(
+                    leadingText: int.parse(data["total_price"]),
+                    contentText: data["order_id"],
+                    itemCount: 1,
+                    userRole: widget.userRole,
+                    tableNumber: widget.tableNumber,
+                    index: 1,
+                  ));
+                } else
+                  (data["items"] as List).forEach(
+                    (item) => resultList.add(
+                      OneOrderBox(
+                        leadingText: int.parse(item["quantity"]),
+                        contentText: item["item_id"],
+                        itemCount: int.parse(item["quantity"]),
+                        userRole: widget.userRole,
+                        tableNumber: widget.tableNumber,
+                        index: 1,
+                      ),
                     ),
-                  ),
-                );
+                  );
               });
 
           return ListView(

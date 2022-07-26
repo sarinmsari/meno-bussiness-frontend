@@ -11,7 +11,7 @@ class OneOrderBox extends StatefulWidget {
   const OneOrderBox(
       {Key? key,
       required this.leadingText,
-      required this.itemCount,
+      this.itemCount,
       required this.userRole,
       required this.tableNumber,
       required this.index,
@@ -23,7 +23,7 @@ class OneOrderBox extends StatefulWidget {
   final String contentText;
   final int index;
   final int tableNumber;
-  final int itemCount;
+  final int? itemCount;
 
   @override
   State<OneOrderBox> createState() => _OneOrderBoxState();
