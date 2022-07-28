@@ -60,8 +60,7 @@ Widget itemBuildMethod(
             ? IconButton(
                 onPressed: () {
                   items.removeWhere((element) =>
-                      element["item_category"] ==
-                      items[index]["item_category"]);
+                      element["item_name"] == items[index]["item_name"]);
 
                   // item removed , update db
                   menuRef
